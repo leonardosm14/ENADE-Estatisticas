@@ -22,4 +22,4 @@ for xlsx_file in xlsx_folder.iterdir():
         ) for col in df.columns
     ]
 
-    df.to_csv(path_or_buf=f"{csv_folder}/{xlsx_file.name}", index=False)
+    df.to_csv(path_or_buf=f"{csv_folder}/{xlsx_file.stem}.csv", index=False)
