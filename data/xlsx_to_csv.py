@@ -18,7 +18,7 @@ for xlsx_file in xlsx_folder.iterdir():
     #Remove acentuações, substitui ' - ' por um único espaço, substitui espaços por '_'.
     df.columns = [
         unidecode(
-            normalize("NFKD", col.replace(' - ', ' ').replace(' ', '_').lower())
+            normalize("NFKD", col.replace(' - ', ' ').replace(' ', '_').rstrip('*').lower())
         ) for col in df.columns
     ]
 
