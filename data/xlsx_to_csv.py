@@ -15,10 +15,10 @@ for xlsx_file in xlsx_folder.iterdir():
     print(f"Converting xlsx file {xlsx_file.name} to csv and formatting.")
     df = pd.read_excel(io=xlsx_file)
 
-    #Remove acentuações, substitui ' - ' por um único espaço, substitui espaços por '_'.
+    #Remove acentuações, espaços iniciais, substitui ' - ' por um único espaço, "*" e substitui espaços por '_'.
     df.columns = [
         unidecode(
-            normalize("NFKD", col.replace(' - ', ' ').replace(' ', '_').rstrip('*').lower())
+            normalize("NFKD", col.strip().replace(' - ', ' ').replace(' ', '_').rstrip('*').lower())
         ) for col in df.columns
     ]
 
