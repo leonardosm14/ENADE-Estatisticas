@@ -10,7 +10,7 @@ data_CPC_SC
 
 # Dados filtrados para Santa Catarina relativos a IGC
 data_IGC_SC <- subset(data_IGC, sigla_da_uf == "SC")
-data_IGC_SC$ano
+data_IGC_SC
 
 # ---------- TABELAS DE FREQUÊNCIA --------------- #
 
