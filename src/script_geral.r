@@ -2,18 +2,21 @@
 setwd("~/Documents/ENADE-Estatisticas")
 
 # Iremos utilizar a seguinte convenção:
-#   dataA <- ano de 2021 -> então, teremos dataA_CPC e dataA_IGC
-#   dataB <- ano de 2022 -> então, teremos dataB_CPC e dataB_IGC
-#   dataC <- ano de 2023 -> então, teremos dataC_CPC e dataC_IGC
+#   dataA <- ano de 2021 -> então, teremos dataA_CPC, dataA_IDD e dataA_IGC
+#   dataB <- ano de 2022 -> então, teremos dataB_CPC, dataB_IDD e dataB_IGC
+#   dataC <- ano de 2023 -> então, teremos dataC_CPC, dataC_IDD e dataC_IGC
 
 # Carregando as bases de dados
 dataA_CPC <- read.csv("data/csv_data/CPC_2021.csv")
+dataA_IDD <- read.csv("data/csv_data/IDD_2021.csv")
 dataA_IGC <- read.csv("data/csv_data/IGC_2021.csv")
 
 dataB_CPC <- read.csv("data/csv_data/CPC_2022.csv")
+dataB_IDD <- read.csv("data/csv_data/IDD_2022.csv")
 dataB_IGC <- read.csv("data/csv_data/IGC_2022.csv")
 
 dataC_CPC <- read.csv("data/csv_data/CPC_2023.csv")
+dataC_IDD <- read.csv("data/csv_data/IDD_2023.csv")
 dataC_IGC <- read.csv("data/csv_data/IGC_2023.csv")
 
 # Função para padronizar colunas com base em um padrão
@@ -30,11 +33,15 @@ padroniza_colunas <- function(df, col_padrao) {
 
 # Dados combinados usando 2023 como padrão
 cols_CPC <- colnames(dataC_CPC)
+cols_IDD <- colnames(dataC_IDD)
 cols_IGC <- colnames(dataC_IGC)
 
 dataA_CPC <- padroniza_colunas(dataA_CPC, cols_CPC)
 dataB_CPC <- padroniza_colunas(dataB_CPC, cols_CPC)
 # dataC_CPC já está no padrão, não precisa alterar
+
+dataA_IDD <- padroniza_colunas(dataA_IDD, cols_IDD)
+dataB_IDD <- padroniza_colunas(dataB_IDD, cols_IDD)
 
 dataA_IGC <- padroniza_colunas(dataA_IGC, cols_IGC)
 dataB_IGC <- padroniza_colunas(dataB_IGC, cols_IGC)
@@ -42,8 +49,10 @@ dataB_IGC <- padroniza_colunas(dataB_IGC, cols_IGC)
 
 # Combina os datasets
 data_CPC <- rbind(dataA_CPC, dataB_CPC, dataC_CPC)
+data_IDD <- rbind(dataA_IDD, dataB_IDD, dataC_IDD)
 data_IGC <- rbind(dataA_IGC, dataB_IGC, dataC_IGC)
 colnames(data_CPC) <- gsub("^X_", "", colnames(data_CPC))
+colnames(data_IDD) <- gsub("^X_", "", colnames(data_IDD))
 colnames(data_IGC) <- gsub("^X_", "", colnames(data_IGC))
 
 # Para a análise exploratória, vamos utilizar como variáveis:
