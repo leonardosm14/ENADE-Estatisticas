@@ -1,5 +1,5 @@
 # Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
-setwd("~/Documents/ENADE-Estatisticas")
+setwd("C:/Users/ruana/Desktop/ENADE-Estatisticas")
 
 # Iremos utilizar a seguinte convenção:
 #   dataA <- ano de 2021 -> então, teremos dataA_CPC, dataA_IDD e dataA_IGC
@@ -84,3 +84,4 @@ pie(tab_modalidade,
     col = rainbow(length(tab_modalidade)),
     labels = paste(names(tab_modalidade), tab_modalidade, sep = ": "))
 dev.off()
+
