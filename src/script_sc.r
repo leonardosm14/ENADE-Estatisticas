@@ -1,5 +1,5 @@
 # Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
-setwd("C:/Users/ruana/Desktop/ENADE-Estatisticas")
+setwd("~/Documents/ENADE-Estatisticas")
 
 # Vamos reutilizar os dados agrupados em script_geral.r
 source(file="src/script_geral.r")
@@ -85,23 +85,6 @@ nomes_qualitativas <- c(
   "modalidade_de_ensino" = "Modalidade de Ensino"
 )
 
-plotar_relacao <- function(dados, qualitativa, quantitativa) {
-  # Nome formatado da qualitativa
-  nome_ql <- ifelse(qualitativa %in% names(nomes_qualitativas),
-                    nomes_qualitativas[[qualitativa]], qualitativa)
-  # Nome formatado da quantitativa
-  nome_qt <- ifelse(quantitativa %in% names(nomes_quantitativas),
-                    nomes_quantitativas[[quantitativa]], quantitativa)
-  
-  # Diretório onde os gráficos serão salvos
-  dir_graficos <- "src/gráficos/"
-  # Criar nome do arquivo dinamicamente com base nas variáveis
-  arquivo_saida <- paste0(dir_graficos,"Boxplot_de_", gsub(" ", "_", nome_qt),"_por_", gsub(" ", "_", nome_ql),".png")
-  png(filename = arquivo_saida, width = 1500, height = 800)
-  boxplot(dados[[quantitativa]] ~ dados[[qualitativa]],main = paste(nome_qt, "por", nome_ql),xlab = nome_ql, ylab = nome_qt,col = "lightblue", las = 1)
-  dev.off()
-}
-
 # Variáveis qualitativas
 qualitativas <- c("categoria_administrativa", "modalidade_de_ensino")
 
@@ -124,7 +107,6 @@ for (q in qualitativas) {
     plotar_relacao(data_IDD_SC, q, var)
   }
 }
-
 
 # ---TABELA DE CONTINGÊNCIA IGC x CATEGORIA ADMINISTRATIVA--- #
 
@@ -149,16 +131,11 @@ df_igc_bins <- salvar_frequencia_continuo(valores = igc_universidades$igc_medio,
 
 k <- nrow(df_igc_bins)
 
-igc_bins <- cut(igc_universidades$igc_medio,breaks = k,include.lowest = TRUE,right = FALSE)
+igc_bins <- cut(igc_universidades$igc_medio,breaks = k,include.lowest = TRUE, right = FALSE)
 
 # Criar tabela de contingência
 tabela_contingencia <- table(igc_universidades$categoria_administrativa,igc_bins)
-
-# Mostrar tabela
 print(tabela_contingencia)
 
 # Salvar CSV
-write.csv(as.data.frame(tabela_contingencia),"src/tabelas/SC/igc_categoria_administrativa_contingencia.csv",row.names = FALSE)
-
-
-
+write.csv(as.data.frame(tabela_contingencia),"src/tabelas/SC/igc_categoria_administrativa_contingencia.csv", row.names = FALSE)
