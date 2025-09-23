@@ -60,9 +60,6 @@ tab_modalidade <- tab_modalidade[names(tab_modalidade) != ""]
 write.csv(tab_cat_admin, "src/tabelas/tabela_frequencia_categoria_administrativa.csv", row.names = FALSE)
 write.csv(tab_modalidade, "src/tabelas/tabela_frequencia_modalidade_ensino.csv", row.names = FALSE)
 
-
-# Gráficos de Barra
-
 # Gráfico de pizza para Categoria Administrativa
 png("src/gráficos/pizza_categoria_administrativa.png", width = 800, height = 600)
 pie(tab_cat_admin,
