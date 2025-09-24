@@ -54,6 +54,55 @@ classes <- cut(igc_continuo, breaks = k, include.lowest = TRUE, right = FALSE)
 freq_igc_continuo <- table(classes)
 write.csv(as.data.frame(freq_igc_continuo), "src/tabelas/SC/igc_continuo.csv", row.names = FALSE)
 
+# ------------------ GRÁFICOS ------------------- #
+
+# Modalidade de Ensino por Curso
+png("src/gráficos/barras_modalidade_de_ensino_SC.png")
+barplot(modalidade_de_ensino_curso,
+    main = "Distribuição por Modalidade de Ensino",
+    col = rainbow(length(modalidade_de_ensino_curso)),   # cores diferentes para cada barra
+    labels = paste(names(modalidade_de_ensino_curso), modalidade_de_ensino_curso, sep = ": "))  # nomes + valores
+dev.off()
+
+# Categoria Administrativa por Instituição - Aparições únicas
+png("src/gráficos/barras_categoria_administrativa_SC.png")
+barplot(categoria_administrativa,
+    main = "Distribuição por Categoria Administrativa",
+    col = rainbow(length(categoria_administrativa)),   # cores diferentes para cada barra
+    labels = paste(names(categoria_administrativa), categoria_administrativa, sep = ": "))  # nomes + valores
+dev.off()
+
+# Conceito ENADE - Contínuo
+png("src/gráficos/donut_conceito_enade_SC.png")
+doughnut(freq_enade_continuo,
+    main = "Distribuição do Conceito ENADE",
+    col = rainbow(length(freq_enade_continuo)),   # cores diferentes para cada seção
+    labels = paste(names(freq_enade_continuo), freq_enade_continuo, sep = ": "))  # nomes + valores
+dev.off()
+
+# Indicador de Diferença entre os Desempenhos Observados e Esperado (IDD) - Contínuo
+png("src/gráficos/donut_IDD_SC.png")
+doughnut(freq_idd_continuo,
+    main = "Distribuição do IDD",
+    col = rainbow(length(freq_idd_continuo)),   # cores diferentes para cada seção
+    labels = paste(names(freq_idd_continuo), freq_idd_continuo, sep = ": "))  # nomes + valores
+dev.off()
+
+# Conceito Preliminar do Curso - CPC - Contínuo
+png("src/gráficos/donut_CPC_SC.png")
+doughnut(freq_cpc_continuo,
+    main = "Distribuição do CPC",
+    col = rainbow(length(freq_cpc_continuo)),   # cores diferentes para cada seção
+    labels = paste(names(freq_cpc_continuo), freq_cpc_continuo, sep = ": "))  # nomes + valores
+dev.off()
+
+# Índice Geral de Cursos - Contínuo
+png("src/gráficos/donut_IGC_SC.png")
+doughnut(freq_igc_continuo,
+    main = "Distribuição do IGC",
+    col = rainbow(length(freq_igc_continuo)),   # cores diferentes para cada seção
+    labels = paste(names(freq_igc_continuo), freq_igc_continuo, sep = ": "))  # nomes + valores
+dev.off()
 
 # ------- MEDIDAS DE TENDÊNCIA CENTRAL ----------- #
 
