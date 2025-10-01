@@ -56,13 +56,12 @@ write.csv(as.data.frame(freq_igc_continuo), "src/tabelas/SC/igc_continuo.csv", r
 
 # ------------------ GRÁFICOS ------------------- #
 
-myPalette <- c("#0000EE", "#f88366ff", "#b775eeff", "#ffb4b4ff", "#40E0D0", "#FFFF00", "#eb5965ff", "#afdd99ff", "#fa00edff", "#95c3ffff", "#EEAD0E", "#7e20f8ff")
 
 # Modalidade de Ensino por Curso
 png("src/gráficos/pizza_modalidade_de_ensino_SC.png")
 pie(modalidade_de_ensino_curso,
     main = "Distribuição por Modalidade de Ensino",
-    col = c("#ffb4b4ff", "#0000EE", "#40E0D0"),   # cores diferentes para cada fatia
+    col = c("#FFFF00", "#6e92f5ff"),   # cores diferentes para cada fatia
     labels = paste(c("Educação a
 Distância", "Educação 
 Presencial"), modalidade_de_ensino_curso, sep = ": "))
@@ -72,7 +71,7 @@ dev.off()
 png("src/gráficos/pizza_categoria_administrativa_SC_completo.png")
 pie(categoria_administrativa, 
     main = "Distribuição por Categoria Administrativa",
-    col = myPalette,   # cores diferentes para cada fatia
+    col = c("#f3736fff", "#fda58fff", "#6e92f5ff", "#95c3ffff", "#77e9b0ff", "#62bd85ff", "#0ece8eff"),  # cores diferentes para cada fatia
     radius = 0.65,
     labels = paste(c("Comunitária/
 Confessional", "Especial", "Privada com Fins Lucrativos", "Privada sem Fins Lucrativos", "
@@ -82,11 +81,11 @@ dev.off()
 # Categoria Administrativa por Instituição - Divisão geral
 categorias <- factor(c("Outros", "Outros", "Privada", "Privada", "Pública", "Pública", "Pública"))
 lista_categorisada <- split(categoria_administrativa, categorias)
-data <- c(sum(lista_categorisada$Privada), sum(lista_categorisada$Pública), sum(lista_categorisada$Outros))
+data <- c(sum(lista_categorisada$Outros), sum(lista_categorisada$Privada), sum(lista_categorisada$Pública))
 png("src/gráficos/pizza_categoria_administrativa_SC_geral.png")
 pie(data, 
     main = "Distribuição por Categoria Administrativa",
-    col = c("#0000EE", "#ffb4b4ff", "#40E0D0"),   # cores diferentes para cada fatia
+    col = c("#fda58fff", "#95c3ffff","#77e9b0ff"),   # cores diferentes para cada fatia
     labels = paste(c("Privada", "Pública", "Outros"), data, sep = ": "))  
 dev.off()
 
@@ -96,7 +95,7 @@ dev.off()
 png("src/gráficos/pizza_categoria_administrativa_SC_privada.png")
 pie(lista_categorisada$Privada,
     main = "Distribuição por Categoria Administrativa",
-    col = c("#0000EE", "#40E0D0"),   # cores diferentes para cada fatia
+    col = c("#6e92f5ff", "#95c3ffff"),   # cores diferentes para cada fatia
     labels = paste(c("Privada com Fins Lucrativos", "Privada sem Fins Lucrativos"), lista_categorisada$Privada, sep = ":"))
 dev.off()
 
@@ -104,7 +103,7 @@ dev.off()
 png("src/gráficos/pizza_categoria_administrativa_SC_publica.png")
 pie(lista_categorisada$Pública,
     main = "Distribuição por Categoria Administrativa",
-    col = c("#ffb4b4ff", "#0000EE", "#40E0D0"),   # cores diferentes para cada fatia
+    col = c("#77e9b0ff", "#62bd85ff", "#0ece8eff"),   # cores diferentes para cada fatia
     labels = paste(c("Pública 
 Estadual", "Pública Federal", "Pública Municipal"), lista_categorisada$Pública, sep = ":"))
 dev.off()
@@ -113,7 +112,7 @@ dev.off()
 png("src/gráficos/pizza_categoria_administrativa_SC_outros.png")
 pie(lista_categorisada$Outros, 
     main = "Distribuição por Categoria Administrativa",
-    col = c("#0000EE", "#40E0D0"),   # cores diferentes para cada fatia
+    col = c("#f3736fff", "#fda58fff"),   # cores diferentes para cada fatia
     labels = paste(c("Comunitária/
 Confessional", "Especial"), lista_categorisada$Pública, sep = ":"))
 dev.off()
@@ -127,10 +126,19 @@ barplot(height = freq_enade_continuo,
     ylab = "Particiantes",
     ylim = c(0, 250),
     cex.axis = 0.7,
-    col = myPalette)   # cores diferentes para cada seção
+    col = "#6e92f5ff")
     axis(1, at=(c(1.3,2.5,3.7,4.9,6.1,7.3,8.5,9.7,10.9,12.1,13.3,14.4)), 
     labels = c(0.414,0.829,1.24,1.66,2.07,2.49,2.9,3.31,3.73,4.14,4.56,4.98), cex.axis = 0.7)
 dev.off()
+
+png("src/gráficos/histograma_conceito_enade_SC.png")
+hist(enade_continuo , breaks=50 , 
+     col="#6e92f5ff" , 
+     main="Distribuição do Conceito ENADE",
+     include.lowest = TRUE,
+     ylim = c(0,70),
+     xlab = "Conceito Enade", ylab = "Participantes",
+     border = "#6e92f5ff")
 
 # Indicador de Diferença entre os Desempenhos Observados e Esperado (IDD) - Continuo
 png("src/gráficos/barras_IDD_SC.png")
@@ -141,7 +149,7 @@ barplot(height = freq_idd_continuo,
     ylab = "Particiantes",
     ylim = c(0, 250),
     cex.axis = 0.7,
-    col = myPalette)   # cores diferentes para cada seção
+    col = "#6e92f5ff")
     axis(1, at=(c(1.3,2.5,3.7,4.9,6.1,7.3,8.5,9.7,10.9,12.1,13.3,14.4)), 
     labels = c(0.417,0.833,1.25,1.67,2.08,2.5,2.92,3.33,3.75,4.17,4.58,5), cex.axis = 0.7)
 dev.off()
@@ -155,7 +163,7 @@ barplot(height = freq_cpc_continuo,
     ylab = "Particiantes",
     ylim = c(0, 250),
     cex.axis = 0.7,
-    col = myPalette)   # cores diferentes para cada seção
+    col = "#6e92f5ff")
     axis(1, at=(c(1.3,2.5,3.7,4.9,6.1,7.3,8.5,9.7,10.9,12.1,13.3,14.4)), 
     labels = c(1.28,1.58,1.88,2.19,2.49,2.79,3.09,3.39,3.7,4,4.3,4.61), cex.axis = 0.7)
 dev.off()
@@ -169,11 +177,20 @@ barplot(height = freq_igc_continuo,
     ylab = "Instituições",
     ylim = c(0, 80),
     cex.axis = 0.7,
-    col = myPalette)   # cores diferentes para cada seção
+    col = "#6e92f5ff")
     axis(1, at=(c(1.3,2.5,3.7,4.9,6.1,7.3,8.5,9.7,10.9)), 
     labels = c(1.31,1.7,2.09,2.48,2.86,3.25,3.64,4.03,4.42), cex.axis = 0.7)
 dev.off()
 
+png("src/gráficos/histograma_IGC_SC.png")
+hist(igc_continuo , breaks=30 , 
+     col="#6e92f5ff" , 
+     main="Distribuição do IGC",
+     include.lowest = TRUE,
+     ylim = c(0,25),
+     xlab = "Índice Geral de Cursos", ylab = "Instituições",
+     border = "#6e92f5ff")
+  
 # ------- MEDIDAS DE TENDÊNCIA CENTRAL ----------- #
 
 
