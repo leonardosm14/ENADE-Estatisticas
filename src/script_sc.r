@@ -1,5 +1,5 @@
 # Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
-setwd("~/ENADE-Estatisticas")
+setwd("~/Documentos/ENADE-Estatisticas")
 
 # Vamos reutilizar os dados agrupados em script_geral.r
 source(file="src/script_geral.r")
@@ -86,7 +86,7 @@ png("src/gráficos/pizza_categoria_administrativa_SC_geral.png")
 pie(data, 
     main = "Distribuição por Categoria Administrativa",
     col = c("#fda58fff", "#95c3ffff","#77e9b0ff"),   # cores diferentes para cada fatia
-    labels = paste(c("Privada", "Pública", "Outros"), data, sep = ": "))  
+    labels = paste(c("Outros", "Privada", "Pública"), data, sep = ": "))  
 dev.off()
 
 # Categoria Administrativa por Instituição - Divisão específica
