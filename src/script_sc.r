@@ -74,7 +74,8 @@ pie(categoria_administrativa,
     col = c("#f3736fff", "#fda58fff", "#6e92f5ff", "#95c3ffff", "#77e9b0ff", "#62bd85ff", "#0ece8eff"),  # cores diferentes para cada fatia
     radius = 0.65,
     labels = paste(c("Comunitária/
-Confessional", "Especial", "Privada com Fins Lucrativos", "Privada sem Fins Lucrativos", "
+Confessional", "Especial", "Privada com 
+Fins Lucrativos", "Privada sem Fins Lucrativos", "
 Pública Estadual", "Pública Federal", "Pública Municipal"), categoria_administrativa, sep = ": "))
 dev.off()
 
