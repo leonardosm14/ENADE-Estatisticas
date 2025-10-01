@@ -1,5 +1,5 @@
 # Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
-setwd("~/Documentos/ENADE-Estatisticas")
+setwd("~/ENADE-Estatisticas")
 
 # Iremos utilizar a seguinte convenção:
 #   dataA <- ano de 2021 -> então, teremos dataA_CPC, dataA_IDD e dataA_IGC

@@ -1,5 +1,5 @@
 # Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
-setwd("~/Documentos/ENADE-Estatisticas") # !!!!!
+setwd("~/ENADE-Estatisticas")
 
 # Vamos reutilizar os dados agrupados em script_geral.r
 source(file="src/script_geral.r")
@@ -193,13 +193,42 @@ hist(igc_continuo , breaks=30 ,
   
 # ------- MEDIDAS DE TENDÊNCIA CENTRAL ----------- #
 
+cat("\n--- Calculando Medidas de Resumo para Santa Catarina ---\n")
 
+# Lista das variáveis quantitativas de SC para analisar
+vars_sc_para_analise <- list(
+  "Conceito ENADE (Contínuo)" = data_CPC_SC$conceito_enade_.continuo.,
+  "IDD (Contínuo)" = data_IDD_SC$idd_.continuo.,
+  "CPC (Contínuo)" = data_CPC_SC$cpc_.continuo.,
+  "IGC (Contínuo)" = data_IGC_SC$igc_.continuo.
+)
 
+# Criando uma tabela única com as principais medidas de resumo
+tabela_medidas_resumo_sc <- data.frame(
+  Indicador = names(vars_sc_para_analise),
+  Media = sapply(vars_sc_para_analise, mean, na.rm = TRUE),
+  Mediana = sapply(vars_sc_para_analise, median, na.rm = TRUE),
+  
+  # ------------- MEDIDAS DE DISPERSÃO ------------- #
+  
+  Desvio_Padrao = sapply(vars_sc_para_analise, sd, na.rm = TRUE),
+  Minimo = sapply(vars_sc_para_analise, min, na.rm = TRUE),
+  Maximo = sapply(vars_sc_para_analise, max, na.rm = TRUE)
+)
 
+# Adicionando a Amplitude (Max - Min)
+tabela_medidas_resumo_sc$Amplitude <- tabela_medidas_resumo_sc$Maximo - tabela_medidas_resumo_sc$Minimo
 
+# Arredondando os valores para 3 casas decimais para melhor visualização
+tabela_medidas_resumo_sc[, -1] <- round(tabela_medidas_resumo_sc[, -1], 3)
 
-# ------------- MEDIDAS DE DISPERSÃO ------------- #
+# Exibindo a tabela final no console
+print(tabela_medidas_resumo_sc)
 
+# Salvando a tabela em um arquivo CSV na pasta correta
+write.csv(tabela_medidas_resumo_sc, "src/tabelas/SC/tabela_medidas_resumo_sc.csv", row.names = FALSE)
+
+cat("\n--- Tabela com medidas de resumo para SC salva com sucesso! ---\n")
 
 
 
