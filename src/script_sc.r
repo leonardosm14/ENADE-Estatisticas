@@ -231,7 +231,49 @@ write.csv(tabela_medidas_resumo_sc, "src/tabelas/SC/tabela_medidas_resumo_sc.csv
 
 cat("\n--- Tabela com medidas de resumo para SC salva com sucesso! ---\n")
 
+# ---------- TABELAS DE RESUMO PARA VARIÁVEIS QUALITATIVAS --------------- #
 
+cat("\n--- Gerando Tabelas de Resumo para Variáveis Qualitativas ---\n")
+
+# 1. Tabela de Resumo para Modalidade de Ensino
+
+freq_modalidade <- modalidade_de_ensino_curso
+# Calcula a frequência relativa (percentual)
+freq_rel_modalidade <- prop.table(freq_modalidade) * 100
+
+tabela_resumo_modalidade <- data.frame(
+  Frequencia_Absoluta = as.vector(freq_modalidade),
+  Frequencia_Relativa_Percentual = as.vector(freq_rel_modalidade)
+)
+rownames(tabela_resumo_modalidade) <- names(freq_modalidade)
+
+# Exibe a tabela no console
+cat("\n--- Tabela de Resumo: Modalidade de Ensino ---\n")
+print(tabela_resumo_modalidade)
+
+# Salva a tabela em um novo arquivo CSV
+write.csv(tabela_resumo_modalidade, "src/tabelas/SC/resumo_modalidade_ensino.csv", row.names = TRUE)
+
+
+# 2. Tabela de Resumo para Categoria Administrativa
+freq_categoria <- categoria_administrativa
+freq_rel_categoria <- prop.table(freq_categoria) * 100
+
+tabela_resumo_categoria <- data.frame(
+  Frequencia_Absoluta = as.vector(freq_categoria),
+  Frequencia_Relativa_Percentual = as.vector(freq_rel_categoria)
+)
+
+rownames(tabela_resumo_categoria) <- names(freq_categoria)
+
+# Exibe a tabela no console
+cat("\n--- Tabela de Resumo: Categoria Administrativa ---\n")
+print(tabela_resumo_categoria)
+
+# Salva a tabela em um novo arquivo CSV
+write.csv(tabela_resumo_categoria, "src/tabelas/SC/resumo_categoria_administrativa.csv", row.names = TRUE)
+
+cat("\n--- Tabelas de resumo qualitativas salvas com sucesso! ---\n")
 
 
 
