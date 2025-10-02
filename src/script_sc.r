@@ -27,32 +27,19 @@ write.csv(as.data.frame(categoria_administrativa), "src/tabelas/SC/categoria_adm
 
 # Conceito ENADE - Contínuo
 enade_continuo <- data_CPC_SC$conceito_enade_.continuo.
-# Número de classes pelo método de Sturges
-k <- nclass.Sturges(enade_continuo)
-classes <- cut(enade_continuo, breaks = k, include.lowest = TRUE, right = FALSE)
-freq_enade_continuo <- table(classes)
-write.csv(as.data.frame(freq_enade_continuo), "src/tabelas/SC/conceito_enade_continuo.csv", row.names = FALSE)
+salvar_frequencia_continuo(valores = enade_continuo, arquivo_saida = "src/tabelas/SC/conceito_enade_continuo.csv")
 
 # Indicador de Diferença entre os Desempenhos Observados e Esperado (IDD) - Continuo
 idd_continuo <- data_IDD_SC$idd_.continuo.
-k <- nclass.Sturges(idd_continuo)
-classes <- cut(idd_continuo, breaks = k, include.lowest = TRUE, right = FALSE)
-freq_idd_continuo <- table(classes)
-write.csv(as.data.frame(freq_idd_continuo), "src/tabelas/SC/idd_continuo.csv", row.names = FALSE)
+salvar_frequencia_continuo(valores = idd_continuo, arquivo_saida = "src/tabelas/SC/idd_continuo.csv")
 
 # Conceito Preliminar do Curso - CPC - Contínuo
 cpc_continuo <- data_CPC_SC$cpc_.continuo.
-k <- nclass.Sturges(cpc_continuo)
-classes <- cut(cpc_continuo, breaks = k, include.lowest = TRUE, right = FALSE)
-freq_cpc_continuo <- table(classes)
-write.csv(as.data.frame(freq_cpc_continuo), "src/tabelas/SC/conceito_preliminar_curso_continuo.csv", row.names = FALSE)
+salvar_frequencia_continuo(valores = cpc_continuo, arquivo_saida = "src/tabelas/SC/conceito_preliminar_curso_continuo.csv")
 
 # Índice Geral de Cursos - Contínuo
 igc_continuo <- data_IGC_SC$igc_.continuo.
-k <- nclass.Sturges(igc_continuo)
-classes <- cut(igc_continuo, breaks = k, include.lowest = TRUE, right = FALSE)
-freq_igc_continuo <- table(classes)
-write.csv(as.data.frame(freq_igc_continuo), "src/tabelas/SC/igc_continuo.csv", row.names = FALSE)
+salvar_frequencia_continuo(valores = igc_continuo, arquivo_saida = "src/tabelas/SC/igc_continuo.csv")
 
 # ------------------ GRÁFICOS ------------------- #
 
@@ -335,7 +322,7 @@ for (id in uni_cat_ids) {
 }
 
 # Criar classes com função em utils.r
-df_igc_bins <- salvar_frequencia_continuo(valores = igc_universidades$igc_medio,arquivo_saida = "src/tabelas/SC/igc_continuo_universidades_cat.csv")
+df_igc_bins <- salvar_frequencia_continuo(valores = igc_universidades$igc_medio, arquivo_saida = "src/tabelas/SC/igc_continuo_universidades_cat.csv")
 
 k <- nrow(df_igc_bins)
 
