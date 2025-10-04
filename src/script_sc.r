@@ -27,19 +27,23 @@ write.csv(as.data.frame(categoria_administrativa), "src/tabelas/SC/categoria_adm
 
 # Conceito ENADE - Contínuo
 enade_continuo <- data_CPC_SC$conceito_enade_.continuo.
-salvar_frequencia_continuo(valores = enade_continuo, arquivo_saida = "src/tabelas/SC/conceito_enade_continuo.csv")
+freq_enade_continuo <- salvar_frequencia_continuo(valores = enade_continuo, arquivo_saida = "src/tabelas/SC/conceito_enade_continuo.csv")
+#freq_enade_continuo <- table(read.csv("src/tabelas/SC/conceito_enade_continuo.csv"))
 
 # Indicador de Diferença entre os Desempenhos Observados e Esperado (IDD) - Continuo
 idd_continuo <- data_IDD_SC$idd_.continuo.
-salvar_frequencia_continuo(valores = idd_continuo, arquivo_saida = "src/tabelas/SC/idd_continuo.csv")
+freq_idd_continuo <- salvar_frequencia_continuo(valores = idd_continuo, arquivo_saida = "src/tabelas/SC/idd_continuo.csv")
+#freq_idd_continuo <- table(read.csv("src/tabelas/SC/idd_continuo.csv"))
 
 # Conceito Preliminar do Curso - CPC - Contínuo
 cpc_continuo <- data_CPC_SC$cpc_.continuo.
-salvar_frequencia_continuo(valores = cpc_continuo, arquivo_saida = "src/tabelas/SC/conceito_preliminar_curso_continuo.csv")
+freq_cpc_continuo <- salvar_frequencia_continuo(valores = cpc_continuo, arquivo_saida = "src/tabelas/SC/conceito_preliminar_curso_continuo.csv")
+#freq_cpc_continuo <- table(read.csv("src/tabelas/SC/conceito_preliminar_curso_continuo.csv"))
 
 # Índice Geral de Cursos - Contínuo
 igc_continuo <- data_IGC_SC$igc_.continuo.
-salvar_frequencia_continuo(valores = igc_continuo, arquivo_saida = "src/tabelas/SC/igc_continuo.csv")
+freq_igc_continuo <- salvar_frequencia_continuo(valores = igc_continuo, arquivo_saida = "src/tabelas/SC/igc_continuo.csv")
+#freq_igc_continuo <- table(read.csv("src/tabelas/SC/igc_continuo.csv"))
 
 # ------------------ GRÁFICOS ------------------- #
 
@@ -51,19 +55,23 @@ pie(modalidade_de_ensino_curso,
     col = c("#FFFF00", "#6e92f5ff"),   # cores diferentes para cada fatia
     labels = paste(c("Educação a
 Distância", "Educação 
-Presencial"), modalidade_de_ensino_curso, sep = ": "))
+Presencial"), ":
+", round((modalidade_de_ensino_curso/1349)*100, 2), "%"))
 dev.off()
 
 # Categoria Administrativa por Instituição - Completo: difícil visibilidade
 png("src/gráficos/pizza_categoria_administrativa_SC_completo.png")
 pie(categoria_administrativa, 
-    main = "Distribuição por Categoria Administrativa",
+    main = "",
     col = c("#f3736fff", "#fda58fff", "#6e92f5ff", "#95c3ffff", "#77e9b0ff", "#62bd85ff", "#0ece8eff"),  # cores diferentes para cada fatia
-    radius = 0.65,
+    radius = 0.44,
     labels = paste(c("Comunitária/
-Confessional", "Especial", "Privada com 
-Fins Lucrativos", "Privada sem Fins Lucrativos", "
-Pública Estadual", "Pública Federal", "Pública Municipal"), categoria_administrativa, sep = ": "))
+Confessional", "Especial", "Privada com Fins
+Lucrativos", "
+Privada sem Fins 
+Lucrativos", "
+Pública Estadual", "Pública Federal", "Pública Municipal"),": ",round((categoria_administrativa/116)*100, 2),"% "))
+title("Distribuição por Categoria Administrativa", line = -2, cex = 0.5)
 dev.off()
 
 # Categoria Administrativa por Instituição - Divisão geral
@@ -72,9 +80,10 @@ lista_categorisada <- split(categoria_administrativa, categorias)
 data <- c(sum(lista_categorisada$Outros), sum(lista_categorisada$Privada), sum(lista_categorisada$Pública))
 png("src/gráficos/pizza_categoria_administrativa_SC_geral.png")
 pie(data, 
-    main = "Distribuição por Categoria Administrativa",
+    main = "Distribuição por Categoria Administrativa - Agrupada",
+    radius = 0.8,
     col = c("#fda58fff", "#95c3ffff","#77e9b0ff"),   # cores diferentes para cada fatia
-    labels = paste(c("Outros", "Privada", "Pública"), data, sep = ": "))  
+    labels = paste(c("Outros", "Privada", "Pública"), ": ", round((data/116)*100, 2), "%"))
 dev.off()
 
 # Categoria Administrativa por Instituição - Divisão específica
@@ -82,32 +91,42 @@ dev.off()
 #Privada
 png("src/gráficos/pizza_categoria_administrativa_SC_privada.png")
 pie(lista_categorisada$Privada,
-    main = "Distribuição por Categoria Administrativa",
+    main = "Distribuição por Categoria Administrativa - Privadas",
+    radius = 0.7,
     col = c("#6e92f5ff", "#95c3ffff"),   # cores diferentes para cada fatia
-    labels = paste(c("Privada com Fins Lucrativos", "Privada sem Fins Lucrativos"), lista_categorisada$Privada, sep = ":"))
+    labels = paste(c("Privada com Fins 
+Lucrativos", "
+
+Privada sem Fins 
+Lucrativos"), ": ", round((lista_categorisada$Privada/94)*100, 2), "%
+"))
 dev.off()
 
 #Pública
 png("src/gráficos/pizza_categoria_administrativa_SC_publica.png")
 pie(lista_categorisada$Pública,
-    main = "Distribuição por Categoria Administrativa",
+    main = "",
+    radius = 0.6,
     col = c("#77e9b0ff", "#62bd85ff", "#0ece8eff"),   # cores diferentes para cada fatia
     labels = paste(c("Pública 
-Estadual", "Pública Federal", "Pública Municipal"), lista_categorisada$Pública, sep = ":"))
+Estadual", "Pública Federal", "Pública Municipal"), ": ", round((lista_categorisada$Pública/8)*100, 2), "%"))
+title("Distribuição por Categoria Administrativa - Públias", line = -2, cex = 0.5)
 dev.off()
 
 #Outros
 png("src/gráficos/pizza_categoria_administrativa_SC_outros.png")
 pie(lista_categorisada$Outros, 
-    main = "Distribuição por Categoria Administrativa",
+    main = "Distribuição por Categoria Administrativa - Outros",
+    radius = 0.9,
     col = c("#f3736fff", "#fda58fff"),   # cores diferentes para cada fatia
     labels = paste(c("Comunitária/
-Confessional", "Especial"), lista_categorisada$Pública, sep = ":"))
+Confessional", "Especial"), ": 
+", round((lista_categorisada$Outros/14)*100, 2), "%"))
 dev.off()
 
 # Conceito ENADE - Contínuo
 png("src/gráficos/barras_conceito_enade_SC.png")
-barplot(height = freq_enade_continuo, 
+barplot(height = as.vector(freq_enade_continuo$Frequência), 
     names = c("" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,""),
     main = "Distribuição do Conceito ENADE",
     xlab = "Conceito Enade",
@@ -130,7 +149,7 @@ hist(enade_continuo , breaks=50 ,
 
 # Indicador de Diferença entre os Desempenhos Observados e Esperado (IDD) - Continuo
 png("src/gráficos/barras_IDD_SC.png")
-barplot(height = freq_idd_continuo,
+barplot(height = freq_idd_continuo$Frequência,
     names = c("" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,""),
     main = "Distribuição do IDD",
     xlab = "Indicador de Diferença entre os Desempenhos Observados e Esperado",
@@ -144,7 +163,7 @@ dev.off()
 
 # Conceito Preliminar do Curso - CPC - Contínuo
 png("src/gráficos/barras_CPC_SC.png")
-barplot(height = freq_cpc_continuo,
+barplot(height = freq_cpc_continuo$Frequência,
     names = c("" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,""),
     main = "Distribuição do CPC",
     xlab = "Conceito Preliminar do Curso",
@@ -158,7 +177,7 @@ dev.off()
 
 # Índice Geral de Cursos - Contínuo
 png("src/gráficos/barras_IGC_SC.png")
-barplot(height = freq_igc_continuo,
+barplot(height = freq_igc_continuo$Frequência,
     names = c("" ,"" ,"" ,"" ,"" ,"" ,"" ,"" ,""),
     main = "Distribuição do IGC",
     xlab = "Índice Geral de Cursos",
@@ -176,6 +195,7 @@ hist(igc_continuo , breaks=30 ,
      main="Distribuição do IGC",
      include.lowest = TRUE,
      ylim = c(0,25),
+     xlim = c(0.9,5),
      xlab = "Índice Geral de Cursos", ylab = "Instituições",
      border = "#6e92f5ff")
   
