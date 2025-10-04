@@ -28,22 +28,17 @@ write.csv(as.data.frame(categoria_administrativa), "src/tabelas/SC/categoria_adm
 # Conceito ENADE - Contínuo
 enade_continuo <- data_CPC_SC$conceito_enade_.continuo.
 freq_enade_continuo <- salvar_frequencia_continuo(valores = enade_continuo, arquivo_saida = "src/tabelas/SC/conceito_enade_continuo.csv")
-#freq_enade_continuo <- table(read.csv("src/tabelas/SC/conceito_enade_continuo.csv"))
 
 # Indicador de Diferença entre os Desempenhos Observados e Esperado (IDD) - Continuo
 idd_continuo <- data_IDD_SC$idd_.continuo.
 freq_idd_continuo <- salvar_frequencia_continuo(valores = idd_continuo, arquivo_saida = "src/tabelas/SC/idd_continuo.csv")
-#freq_idd_continuo <- table(read.csv("src/tabelas/SC/idd_continuo.csv"))
 
 # Conceito Preliminar do Curso - CPC - Contínuo
 cpc_continuo <- data_CPC_SC$cpc_.continuo.
 freq_cpc_continuo <- salvar_frequencia_continuo(valores = cpc_continuo, arquivo_saida = "src/tabelas/SC/conceito_preliminar_curso_continuo.csv")
-#freq_cpc_continuo <- table(read.csv("src/tabelas/SC/conceito_preliminar_curso_continuo.csv"))
 
-# Índice Geral de Cursos - Contínuo
 igc_continuo <- data_IGC_SC$igc_.continuo.
 freq_igc_continuo <- salvar_frequencia_continuo(valores = igc_continuo, arquivo_saida = "src/tabelas/SC/igc_continuo.csv")
-#freq_igc_continuo <- table(read.csv("src/tabelas/SC/igc_continuo.csv"))
 
 # ------------------ GRÁFICOS ------------------- #
 
@@ -220,6 +215,8 @@ tabela_medidas_resumo_sc <- data.frame(
   # ------------- MEDIDAS DE DISPERSÃO ------------- #
   
   Desvio_Padrao = sapply(vars_sc_para_analise, sd, na.rm = TRUE),
+  Variancia = sapply(vars_sc_para_analise, var, na.rm = TRUE),
+  CV = sapply(vars_sc_para_analise, function(x) sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE) * 100),
   Minimo = sapply(vars_sc_para_analise, min, na.rm = TRUE),
   Maximo = sapply(vars_sc_para_analise, max, na.rm = TRUE)
 )
@@ -230,59 +227,43 @@ tabela_medidas_resumo_sc$Amplitude <- tabela_medidas_resumo_sc$Maximo - tabela_m
 # Arredondando os valores para 3 casas decimais para melhor visualização
 tabela_medidas_resumo_sc[, -1] <- round(tabela_medidas_resumo_sc[, -1], 3)
 
-# Exibindo a tabela final no console
-print(tabela_medidas_resumo_sc)
-
 # Salvando a tabela em um arquivo CSV na pasta correta
 write.csv(tabela_medidas_resumo_sc, "src/tabelas/SC/tabela_medidas_resumo_sc.csv", row.names = FALSE)
 
-cat("\n--- Tabela com medidas de resumo para SC salva com sucesso! ---\n")
+# ---------- GRÁFICOS DE DISTRIBUIÇÃO NORMAL ----------- #
 
-# ---------- TABELAS DE RESUMO PARA VARIÁVEIS QUALITATIVAS --------------- #
+criar_curva_normal <- function(dados, titulo, nome_arquivo, cor = "#6e92f5ff") {
+  png(nome_arquivo, width = 800, height = 600)
+  
+  h <- hist(dados, plot = FALSE, breaks = 30)
+  
+  plot(h, freq = FALSE, main = titulo, 
+       xlab = titulo, ylab = "Densidade", 
+       col = cor, border = "white",
+       ylim = c(0, max(h$density) * 1.1))
+  
+  if(length(dados) > 1 && sd(dados, na.rm = TRUE) > 0) {
+    x <- seq(min(dados, na.rm = TRUE), max(dados, na.rm = TRUE), length = 100)
+    y <- dnorm(x, mean = mean(dados, na.rm = TRUE), sd = sd(dados, na.rm = TRUE))
+    lines(x, y, col = "red", lwd = 2)
+    
+    legend("topright", legend = "Curva Normal", col = "red", lwd = 2, bty = "n")
+  }
+  
+  dev.off()
+}
 
-cat("\n--- Gerando Tabelas de Resumo para Variáveis Qualitativas ---\n")
+criar_curva_normal(enade_continuo, "Distribuição Normal - Conceito ENADE", 
+                   "src/gráficos/curva_normal_enade_SC.png")
 
-# 1. Tabela de Resumo para Modalidade de Ensino
+criar_curva_normal(idd_continuo, "Distribuição Normal - IDD", 
+                   "src/gráficos/curva_normal_idd_SC.png")
 
-freq_modalidade <- modalidade_de_ensino_curso
-# Calcula a frequência relativa (percentual)
-freq_rel_modalidade <- prop.table(freq_modalidade) * 100
+criar_curva_normal(cpc_continuo, "Distribuição Normal - CPC", 
+                   "src/gráficos/curva_normal_cpc_SC.png")
 
-tabela_resumo_modalidade <- data.frame(
-  Frequencia_Absoluta = as.vector(freq_modalidade),
-  Frequencia_Relativa_Percentual = as.vector(freq_rel_modalidade)
-)
-rownames(tabela_resumo_modalidade) <- names(freq_modalidade)
-
-# Exibe a tabela no console
-cat("\n--- Tabela de Resumo: Modalidade de Ensino ---\n")
-print(tabela_resumo_modalidade)
-
-# Salva a tabela em um novo arquivo CSV
-write.csv(tabela_resumo_modalidade, "src/tabelas/SC/resumo_modalidade_ensino.csv", row.names = TRUE)
-
-
-# 2. Tabela de Resumo para Categoria Administrativa
-freq_categoria <- categoria_administrativa
-freq_rel_categoria <- prop.table(freq_categoria) * 100
-
-tabela_resumo_categoria <- data.frame(
-  Frequencia_Absoluta = as.vector(freq_categoria),
-  Frequencia_Relativa_Percentual = as.vector(freq_rel_categoria)
-)
-
-rownames(tabela_resumo_categoria) <- names(freq_categoria)
-
-# Exibe a tabela no console
-cat("\n--- Tabela de Resumo: Categoria Administrativa ---\n")
-print(tabela_resumo_categoria)
-
-# Salva a tabela em um novo arquivo CSV
-write.csv(tabela_resumo_categoria, "src/tabelas/SC/resumo_categoria_administrativa.csv", row.names = TRUE)
-
-cat("\n--- Tabelas de resumo qualitativas salvas com sucesso! ---\n")
-
-
+criar_curva_normal(igc_continuo, "Distribuição Normal - IGC", 
+                   "src/gráficos/curva_normal_igc_SC.png")
 
 # ----------- RELAÇÕES ENTRE VARIÁVEIS ----------- #
 
@@ -325,12 +306,11 @@ for (q in qualitativas) {
 
 # ---TABELA DE CONTINGÊNCIA IGC x CATEGORIA ADMINISTRATIVA--- #
 
-# Criar identificador único: universidade + categoria
-data_IGC_SC$uni_cat <- paste(data_IGC_SC$nome_da_ies,data_IGC_SC$categoria_administrativa,sep = "_")
+data_IGC_SC$uni_cat <- paste(data_IGC_SC$nome_da_ies, data_IGC_SC$categoria_administrativa, sep = "_")
 
 # Calcular média de IGC por (universidade + categoria)
 uni_cat_ids <- unique(data_IGC_SC$uni_cat)
-igc_universidades <- data.frame(nome_da_ies = character(),categoria_administrativa = character(),igc_medio = numeric(),stringsAsFactors = FALSE)
+igc_universidades <- data.frame(nome_da_ies = character(), categoria_administrativa = character(), igc_medio = numeric(), stringsAsFactors = FALSE)
 
 for (id in uni_cat_ids) {
   linhas <- data_IGC_SC[data_IGC_SC$uni_cat == id, ]
@@ -338,19 +318,35 @@ for (id in uni_cat_ids) {
   uni <- linhas$nome_da_ies[1]
   cat_admin <- linhas$categoria_administrativa[1]
   
-  igc_universidades <- rbind(igc_universidades,data.frame(nome_da_ies = uni,categoria_administrativa = cat_admin,igc_medio = media_igc,stringsAsFactors = FALSE))
+  igc_universidades <- rbind(igc_universidades, data.frame(nome_da_ies = uni, categoria_administrativa = cat_admin, igc_medio = media_igc, stringsAsFactors = FALSE))
 }
 
-# Criar classes com função em utils.r
 df_igc_bins <- salvar_frequencia_continuo(valores = igc_universidades$igc_medio, arquivo_saida = "src/tabelas/SC/igc_continuo_universidades_cat.csv")
 
 k <- nrow(df_igc_bins)
+igc_bins <- cut(igc_universidades$igc_medio, breaks = k, include.lowest = TRUE, right = FALSE)
 
-igc_bins <- cut(igc_universidades$igc_medio,breaks = k,include.lowest = TRUE, right = FALSE)
+tabela_contingencia <- table(igc_universidades$categoria_administrativa, igc_bins)
 
-# Criar tabela de contingência
-tabela_contingencia <- table(igc_universidades$categoria_administrativa,igc_bins)
-print(tabela_contingencia)
+write.csv(as.data.frame(tabela_contingencia), "src/tabelas/SC/igc_categoria_administrativa_contingencia.csv", row.names = FALSE)
 
-# Salvar CSV
-write.csv(as.data.frame(tabela_contingencia),"src/tabelas/SC/igc_categoria_administrativa_contingencia.csv", row.names = FALSE)
+# ---------- GRÁFICOS DE COMPARAÇÃO ENTRE VARIÁVEIS QUALITATIVAS ----------- #
+
+# Tabela de contingência correta entre modalidade e categoria administrativa (por cursos)
+tabela_contingencia_modalidade_categoria <- table(data_CPC_SC$modalidade_de_ensino, data_CPC_SC$categoria_administrativa)
+write.csv(as.data.frame(tabela_contingencia_modalidade_categoria), "src/tabelas/SC/contingencia_modalidade_categoria.csv", row.names = TRUE)
+
+png("src/gráficos/proporcao_modalidade_por_categoria.png")
+par(mar = c(5, 10, 4, 2))  # bottom, left, top, right; mais espaço para nomes longos
+prop_table <- prop.table(tabela_contingencia_modalidade_categoria, margin = 2) * 100
+
+# Barras horizontais
+barplot(prop_table,
+        main = "Proporção de Modalidade por Categoria Administrativa (%)",
+        xlab = "Percentual por Curso (%)",
+        col = c("#FFFF00", "#6e92f5ff"),
+        horiz = TRUE,
+        las = 1,         # rótulos horizontais legíveis
+        cex.names = 0.9)
+legend("topright", legend = rownames(prop_table), fill = c("#FFFF00", "#6e92f5ff"))
+dev.off()

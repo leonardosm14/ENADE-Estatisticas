@@ -1,5 +1,5 @@
-"Indicador","Media","Mediana","Desvio_Padrao","Minimo","Maximo","Amplitude"
-"Conceito ENADE (Contínuo)",2.478,2.488,0.971,0,4.972,4.972
-"IDD (Contínuo)",2.667,2.631,0.983,0,5,5
-"CPC (Contínuo)",2.885,2.857,0.636,0.977,4.603,3.626
-"IGC (Contínuo)",2.703,2.726,0.565,0.926,4.416,3.49
+"Indicador","Media","Mediana","Desvio_Padrao","Variancia","CV","Minimo","Maximo","Amplitude"
+"Conceito ENADE (Contínuo)",2.478,2.488,0.971,0.943,39.196,0,4.972,4.972
+"IDD (Contínuo)",2.667,2.631,0.983,0.965,36.838,0,5,5
+"CPC (Contínuo)",2.885,2.857,0.636,0.404,22.029,0.977,4.603,3.626
+"IGC (Contínuo)",2.703,2.726,0.565,0.319,20.909,0.926,4.416,3.49
