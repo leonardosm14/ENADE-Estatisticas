@@ -9,7 +9,7 @@ A partir da base de dados do **Exame Nacional de Desempenho dos Estudantes (ENAD
 - Cálculo de medidas de tendência central e dispersão.  
 
 ## Estrutura do Projeto:
-
+```
 .
 ├── data
 │   ├── csv_data
@@ -72,3 +72,4 @@ A partir da base de dados do **Exame Nacional de Desempenho dos Estudantes (ENAD
     │   ├── tabela_frequencia_categoria_administrativa.csv
     │   └── tabela_frequencia_modalidade_ensino.csv
     └── utils.r
+```
