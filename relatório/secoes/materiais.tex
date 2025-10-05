@@ -1,0 +1,49 @@
+\section{Materiais e Métodos}
+
+Nesta seção, vamos discutir as variáveis quantitativas e qualitativas selecionadas para análise de dados. Além disso, definimos a base de dados que será utilizada para a análise exploratória como os cursos participantes do ENADE no ciclo trienal de 2021 à 2023 pertencentes ao território de Santa Catarina, de forma com que alcancemos uma base de dados mais compacta cujas conclusões geradas são mais precisas dentro da sua área de alcance, Santa Catarina.
+
+\subsection{Variáveis Quantitativas}
+
+\textbf{Conceito Enade Contínuo (CE) - Variável Contínua}: o Conceito Enade (CE) foi uma variável escolhida por avaliar o desempenho dos cursos de uma instituição de ensino. Sua métrica é baseada nos resultados obtidos por seus estudantes no Enade em relação ao desempenho geral da respectiva área acadêmica em todo o território nacional. Para fins de cálculo, um curso tem que ter pelo menos 2 participantes com resultados válidos no exame para gerar o Conceito Enade, um valor entre 0 e 5 \cite{inep_enade_2024}.
+
+\textbf{Indicador de Diferença entre os Desempenhos Observados e Esperado Contínuo (IDD) - Variável Contínua}: já o IDD foi escolhido por avaliar o quanto um curso de graduação impactou no desenvolvimento de seus estudantes. Ele leva em conta o desempenho dos estudantes no Enade, sua nota de ingresso no ensino superior, a qualidade do curso, entre outras medidas de desempenho, para então comparar o resultado aos dos demais cursos do país. Tudo isso é então compactado em uma variável entre 0 e 5.
+
+\textbf{Conceito Preliminar de Curso Contínuo (CPC) - Variável Contínua}: por outro lado, o CPC foi uma escolha por avaliar a qualidade dos cursos de graduação. As métricas levadas em conta para o seu cálculo são o desempenho dos estudantes no Enade; a contribuição do curso ao desenvolvimento do aluno (IDD); a titulação e regime de trabalho do corpo docente (Censo da Educação Superior); e a opinião dos estudantes sobre a didática, infraestrutura e oportunidades de evolução acadêmica e profissional que o curso proporciona (Questionário do Estudante) \cite{inep_cpc_2024}.
+Essa medida é relativa ao resultado médio da área de avaliação em todo o país, gerando uma faixa contínua definida de 1 a 5.
+
+\textbf{Índice Geral de Cursos Contínuo (IGC) - Variável Contínua}: o IGC é uma média ponderada das notas contínuas dos Conceitos Preliminares de Curso (CPC) de cada curso de graduação e dos Conceitos Capes dos programas de pós-graduação das Instituições de Educação Superior (IES), pelo número de matrículas nos referidos cursos. As médias são então reduzidas a uma faixa contínua de 1 a 5. Sua escolha como variável vem do seu enfoque na qualidade da instituição de ensino perante as demais ao redor do país.
+
+\subsection{Variáveis Qualitativas}
+
+\textbf{Categoria Administrativa - Variável Nominal}: aborda o órgão responsável por gerir a instituição de ensino de determinado curso, sendo as 7 categorias possíveis: Pública Municipal, Pública Estadual, Pública Federal, Comunitária/Confessional, Privada sem Fins Lucrativos, Privada com Fins Lucrativos e Especial. Sua escolha vem do interesse de comparar a presença e o desempenho das instituições públicas e privadas no exame.
+
+\textbf{Modalidade de Ensino  - Variável Nominal
+}: representa como as aulas do curso são administradas aos estudantes, tendo 2 modalidades possíveis: Educação Presencial e Educação a Distância. Por ser um tema recente, essa variável foi incluída para analisar o impacto dessas modalidades no desempenho e qualidade das instituições.
+
+\subsection{Bases de Dados}
+
+A fim de analisar um ciclo trienal completo do ENADE, utilizaremos dados de 2021, 2022 e 2023. Para isso, fizemos o download, no website do ENADE\footnote{https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/indicadores-educacionais/indicadores-de-qualidade-da-educacao-superior}, dos arquivos XLSX referentes ao CPC, IDD e IGC. Em seguida, os arquivos foram formatados para conversão em CSV, padronizando os nomes das colunas: letras minúsculas, sem acentuação e separadas por underline. O \textit{script} Python utilizado nesse processo está referenciado no Anexo 7.1.
+
+Com as bases de dados devidamente formatadas, o primeiro passo foi uni-las em um único conjunto, contemplando os dados dos três anos. Em seguida, ao analisar a frequência das variáveis qualitativas – categoria administrativa (Figura \ref{cat-geral}) e modalidade de ensino (Figura \ref{mod-geral}) –, constatou-se que o dataset totaliza 19.703 linhas, relativas à cada curso avaliado, com instituições de ensino aparecendo mais de uma vez. Para essa análise e geração dos gráficos, utilizamos o \textit{script} R detalhado no Anexo 7.2.
+Diante do grande volume de dados, optou-se por filtrar apenas as informações referentes ao estado de Santa Catarina, de modo a viabilizar uma análise mais detalhada.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{graficos/pizza_categoria_administrativa.png}
+        \caption{Categoria administrativa}
+        \label{cat-geral}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{graficos/pizza_modalidade_ensino.png}
+        \caption{Modalidade de ensino}
+        \label{mod-geral}
+    \end{subfigure}
+    \caption{Distribuição geral por categoria e modalidade}
+    \label{fig:geral}
+\end{figure}
+
+\newpage

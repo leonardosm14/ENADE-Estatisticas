@@ -1,0 +1,305 @@
+\section{Resultados e Discussões}
+
+Ao longo desta seção serão apresentadas e discutidas as tabelas de frequência, os gráficos, os cálculos estatísticos e a relação das variáveis quantitativas e qualitativas descritas na seção de Materiais e Métodos.
+
+\subsection{Tabelas de Frequência e Gráficos}
+
+\subsubsection{Variáveis Qualitativas}
+
+Para a geração das tabelas de frequência das variáveis quantitativas, basta mapear o número de vezes que cada valor aparece no dataset. Nesse sentido, a Tabela \ref{tab-modalidade-sc} e a Tabela \ref{tab-cat-sc} apresentam, respectivamente, os dados referentes à modalidade de ensino e à categoria administrativa.
+
+Além disso, destaca-se que a tabela de frequência da modalidade de ensino foi construída a partir da base acumulada do CPC — considerando cursos avaliados nos anos de 2021, 2022 e 2023. Já a tabela de frequência da categoria administrativa foi elaborada a partir da base do IGC, em que cada instituição aparece apenas uma vez — naturalmente, ao juntar as bases de dados, uma mesma instituição poderia aparecer uma, duas ou até três vezes.
+
+Portanto, a partir das tabelas, conclui-se que, em Santa Catarina, há 1.349 cursos de ensino superior avaliados, distribuídos em 116 instituições de ensino.
+
+Quando observamos mais diretamente o que a frequência dessas variáveis nos mostra, podemos observar que por volta de 20\% dos cursos avaliados são da modalidade Educação a Distância (EaD), o que nos fornece algumas conclusões. A primeira sendo que essa tecnologia foi realmente adotada para cursos de ensino superior em Santa Catarina, ganhando espaço em relação à educação presencial. Já para a segunda conclusão obtida, temos o fato de que o ensino EaD não chegou a substituir o presencial, estando longe disso, dada a predominância do segundo com 80\% dos cursos de Santa Catarina.
+\newpage
+
+\begin{table}[h!]
+\centering
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \caption{Frequência por Modalidade de Ensino por Curso (SC)}
+    \label{tab-modalidade-sc}
+    \begin{tabular}{l r}
+        \hline
+        \textbf{Modalidade de Ensino} & \textbf{Frequência} \\
+        \hline
+        Educação a Distância & 264 \\
+        Educação Presencial  & 1085 \\
+        \hline
+        \textbf{Total} & \textbf{1349} \\
+        \hline
+    \end{tabular}
+\end{minipage}
+\hspace{0.2em}
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{graficos/pizza_modalidade_de_ensino_SC.png}
+    \label{fig:modalidade_ensino}
+\end{minipage}
+\end{table}
+
+\vspace{-0.5em}
+
+\begin{table}[h!]
+\centering
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \caption{Frequência por Categoria Administrativa por Curso (SC)}
+    \label{tab-cat-sc}
+    \begin{tabular}{l r}
+        \hline
+        \textbf{Categoria Administrativa} & \textbf{Frequência} \\
+        \hline
+        Comunitária/Confessional     & 13 \\
+        Especial                     & 1 \\
+        Privada com fins lucrativos  & 51 \\
+        Privada sem fins lucrativos  & 43 \\
+        Pública Estadual             & 1 \\
+        Pública Federal              & 4 \\
+        Pública Municipal            & 3 \\
+        \hline
+        \textbf{Total} & \textbf{116} \\
+        \hline
+    \end{tabular}
+\end{minipage}
+\hspace{0.3em}
+\begin{minipage}{0.50\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{graficos/pizza_categoria_administrativa_SC_completo.png}
+    \label{fig:categoria_adm}
+\end{minipage}
+\end{table}
+
+Tendo em vista a Categoria Administrativa, é possível perceber uma grande predominância de instituições privadas, enquanto públicas, comunitárias e categorias especiais representam menos de 20\%. O gráfico abaixo representa essa relação de forma mais clara. Por nosso foco ser na comparação entre instituições públicas e privadas, o gráfico dá destaque a essas categorias, deixando as demais compactadas em Outros. Com esses dados é possível perceber que a presença de instituições privadas em Santa Catarina supera fortemente a de públicas, representando mais de 80\% enquanto a segunda constitui menos de 7\%. O restante dos gráficos de distribuição para as variáveis qualitativas podem ser observados no Anexo 6.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{graficos/pizza_categoria_administrativa_SC_geral.png}
+\end{figure}
+
+\subsubsection{Variáveis Quantitativas}
+
+Para a criação das tabelas de frequência das variáveis quantitativas, utilizou-se o método de \textit{Sturges} para se determinar o número de classes ($k$) em que os intervalos seriam distribuídos. Para isso, utilizamos a função Sturges da classe nclass da linguagem R, que faz uso da fórmula \mbox{$k = 1 + 1.322\log_{10}N$}, em que $N$ é o número total de elementos. Com isso, fez-se uso do método cut do R para separar os dados em $k$ intervalos. Os detalhes do algoritmo podem ser observados no Anexo 7.3.
+
+Nas Tabelas \ref{tab-conceito-enade}, \ref{tab-idd}, \ref{tab-cpc} e \ref{tab-igc}, respectivamente, temos os valores de frequência divididos por intervalo para o Conceito Enade, IDD, CPC e IGC. Observa-se que o limite inferior do primeiro intervalo pode aparecer como um valor negativo, embora o valor mínimo real seja 0. Isso ocorre porque o algoritmo de definição das classes calcula os intervalos de forma automática a partir da amplitude total dividida pelo número de classes, o que pode gerar uma extrapolação ligeiramente abaixo do valor mínimo observado. Esse ajuste não compromete a análise, pois todos os dados efetivos permanecem dentro da faixa correta.
+
+Em vista dos organizados, podemos tirar algumas conclusões. O Conceito Enade, como mostrado abaixo, tem uma distribuição bastante regular, com bastantes notas concentradas nos valores médios do centro (entre 2 e 3), gradativamente diminuindo para os extremos, mas há algumas divergências. Uma delas é a concentração levemente maior de notas menores que o centro (2,5), enquanto a outra é o salto observado no 0, que acumula uma quantia considerável de conceitos. Isso tudo indica que o Conceito Enade está inclinado para valores menores que o valor central.
+
+Quanto ao IDD, ele também possui uma distribuição relativamente regular em relação ao valor médio (2,5), mas diferente do Conceito Enade, sua inclinação é para os valores acima do centro, com valores próximos do 5 tendo uma leve tendência de crescimento, indicando uma discrepância mais significativa entre o desempenho obtido e o esperado dos cursos avaliados. 
+
+O CPC foi mais um parâmetro que apresentou um comportamento regular em relação ao valor médio (3), sem possuir discrepâncias em nenhum dos extremos, indicando que os cursos de Santa Catarina apresentaram um desempenho próximo à média nacional.
+
+Por fim, o IGC apresenta uma grande concentração de valores centrais, com as extremidades tendo pouquíssimos valores, indicando que as instituições de ensino de Santa Catarina são avaliadas como tendo uma qualidade média em relação ao restante do país. O restante dos gráficos de distribuição para as variáveis podem ser observados no Anexo 6.
+
+\begin{table}[H]
+\centering
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \caption{Frequência por Conceito Enade Contínuo por Curso (SC}
+    \label{tab-conceito-enade}
+    \begin{tabular}{l r}
+        \hline
+        \textbf{Limites} & \textbf{Frequência} \\
+        \hline
+        $[-0.00497, 0.414)$ & 54 \\
+        $[0.414, 0.829)$    & 15 \\
+        $[0.829, 1.24)$     & 35 \\
+        $[1.24, 1.66)$      & 119 \\
+        $[1.66, 2.07)$      & 198 \\
+        $[2.07, 2.49)$      & 225 \\
+        $[2.49, 2.9)$       & 224 \\
+        $[2.9, 3.31)$       & 184 \\
+        $[3.31, 3.73)$      & 132 \\
+        $[3.73, 4.14)$      & 56 \\
+        $[4.14, 4.56)$      & 35 \\
+        $[4.56, 4.98]$      & 21 \\
+        \hline
+    \end{tabular}
+\end{minipage}
+\hspace{0.2em}
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{graficos/histograma_conceito_enade_SC.png}
+    \label{fig:histograma_enade}
+\end{minipage}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{graficos/barras_IDD_SC.png}
+\end{minipage}
+\hspace{0.2em}
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \caption{Frequência por IDD Contínuo (SC)}
+    \label{tab-idd}
+    \begin{tabular}{l r}
+        \hline
+        \textbf{Limites} & \textbf{Frequência} \\
+        \hline
+        $[-0.005, 0.417)$ & 15 \\
+        $[0.417, 0.833)$  & 21 \\
+        $[0.833, 1.25)$   & 45 \\
+        $[1.25, 1.67)$    & 81 \\
+        $[1.67, 2.08)$    & 126 \\
+        $[2.08, 2.5)$     & 189 \\
+        $[2.5, 2.92)$     & 203 \\
+        $[2.92, 3.33)$    & 147 \\
+        $[3.33, 3.75)$    & 116 \\
+        $[3.75, 4.17)$    & 68 \\
+        $[4.17, 4.58)$    & 34 \\
+        $[4.58, 5]$       & 40 \\
+        \hline
+    \end{tabular}
+\end{minipage}
+\end{table}
+
+\vspace{-0.5em}
+
+\begin{table}[H]
+\centering
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \caption{Frequência por Conceito Preliminar do Curso Contínuo (SC)}
+    \label{tab-cpc}
+    \begin{tabular}{l r}
+        \hline
+        \textbf{Limites} & \textbf{Frequência} \\
+        \hline
+        $[0.973, 1.28)$ & 5 \\
+        $[1.28, 1.58)$  & 16 \\
+        $[1.58, 1.88)$  & 45 \\
+        $[1.88, 2.19)$  & 104 \\
+        $[2.19, 2.49)$  & 166 \\
+        $[2.49, 2.79)$  & 233 \\
+        $[2.79, 3.09)$  & 229 \\
+        $[3.09, 3.39)$  & 169 \\
+        $[3.39, 3.7)$   & 148 \\
+        $[3.7, 4)$      & 78 \\
+        $[4, 4.3)$      & 42 \\
+        $[4.3, 4.61]$   & 16 \\
+        \hline
+    \end{tabular}
+\end{minipage}
+\hspace{0.2em}
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{graficos/barras_CPC_SC.png}
+    \label{fig:barras_cpc}
+\end{minipage}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \caption{Distribuição de Frequências do Índice Geral de Cursos (IGC) -- SC}
+    \label{tab-igc}
+    \begin{tabular}{l r}
+        \hline
+        \textbf{Limites} & \textbf{Frequência} \\
+        \hline
+        $[0.923, 1.31)$ & 4 \\
+        $[1.31, 1.7)$   & 6 \\
+        $[1.7, 2.09)$   & 19 \\
+        $[2.09, 2.48)$  & 54 \\
+        $[2.48, 2.86)$  & 70 \\
+        $[2.86, 3.25)$  & 47 \\
+        $[3.25, 3.64)$  & 37 \\
+        $[3.64, 4.03)$  & 3 \\
+        $[4.03, 4.42]$  & 4 \\
+        \hline
+    \end{tabular}
+\end{minipage}
+\hspace{0.2em}
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{graficos/histograma_IGC_SC.png}
+    \label{fig:histograma_igc}
+\end{minipage}
+\end{table}
+
+\subsection{Medidas de Tendência Central e Dispersão}
+
+Nesta seção, calculamos, para as variáveis quantitativas, as medidas de tendência central de média e mediana. Para medidas de dispersão, calculamos o desvio padrão, variância, coeficiente de variação (CV), mínimo, máximo e amplitude. Os resultados podem ser observados na Tabela \ref{tab-estatisticas_descritivas}.
+
+Como é possível perceber, esses resultados complementam as conclusões obtidas na seção 3.1, com a média e mediana muito próximas indicando estabilidade nos quatro índices. Além disso, esses valores também se aproximam do valor central, como explicado anteriormente, com o CPC e o IGC contendo as menores variâncias devido a ausência de picos em suas extremidades. 
+
+\begin{table}[H]
+\centering
+\caption{Estatísticas Descritivas dos Indicadores Contínuos (SC)}
+\label{tab-estatisticas_descritivas}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c c c c c c c c}
+\hline
+\textbf{Indicador} & \textbf{Média} & \textbf{Mediana} & \textbf{Desvio Padrão} & \textbf{Variância} & \textbf{CV (\%)} & \textbf{Mínimo} & \textbf{Máximo} & \textbf{Amplitude} \\
+\hline
+Conceito ENADE (Contínuo) & 2.478 & 2.488 & 0.971 & 0.943 & 39.196 & 0     & 4.972 & 4.972 \\
+IDD (Contínuo)             & 2.667 & 2.631 & 0.983 & 0.965 & 36.838 & 0     & 5     & 5     \\
+CPC (Contínuo)             & 2.885 & 2.857 & 0.636 & 0.404 & 22.029 & 0.977 & 4.603 & 3.626 \\
+IGC (Contínuo)             & 2.703 & 2.726 & 0.565 & 0.319 & 20.909 & 0.926 & 4.416 & 3.49  \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+\section{Relações Entre Variáveis}
+
+Nesta seção são apresentadas as relações entre as variáveis qualitativas e quantitativas escolhidas. Optou-se pela representação em boxplot para relacionar as variáveis qualitativas com os indicadores quantitativos do Conceito Enade, IDD e CPC, sendo exemplificado a relação das variáveis qualitativas e o Conceito Enade.
+
+Na relação de Categoria Administrativa com o Conceito Enade, observa-se valores de mediana mais altos entre os cursos nas categorias de instituições públicas(Federal, Estadual e Municipal) enquanto as categorias privadas (com e sem fim lucrativo) apresentam medianas menores entre os cursos. 
+
+Em relação a comparação entre a modalidade de ensino e Conceito Enade, cursos de modalidade presencial mostram-se com mediana maior quando comparados com a modalidade Ensino à Distância, o que pode-se interpretar como um melhor rendimento nos cursos dessa modalidade.
+
+Para a relação entre IGC e Categoria administrativa, optou-se por uma representação em tabela de contingência, descrito na Tabela \ref{contingencia-igc-cat} devido ao baixo número de dados associados específicamente às instituições classificadas como categoria administrativa “Especial” com apenas uma instituição representante na relação, o que não justificaria um boxplot específico. É importante destacar que, como os dados abrangem as entradas de 3 anos, algumas instituições aparecem repetidas com categorias administrativas diferentes entre os anos, o que se explica por uma mudança na administração da instituição. Nesses casos foi adotada a convenção de tratar as instituições repetidas mas com categorias diferentes entre os anos como entradas independentes tomando o valor único de seus IGCs. Já instituições de mesmo nome e categorias iguais entre os anos tiveram a sua faixa de IGC apresentada como uma média entre as entradas nos diferentes anos.
+
+Na tabela de contingência, observa-se claramente a distribuição dos dados com uma maior representatividade das categorias de “Privada com fins lucrativos” e “Privada sem fins lucrativos”, ambas com uma grande parcela de  instituições situando-se entre as faixas de IGC 2.20 e 3.05. Outro ponto relevante a ser apontado é quanto aos dados referentes a instituições públicas federais, que, embora com pouca representatividade nos dados (4 instituições), é a única categoria a apresentar uma instituição na faixa mais alta, entre 3.9 a 4.32.
+
+A seguir, são apresentados os gráficos e a tabela de contingência gerados e analisados. O restante dos gráficos podem ser observados no Anexo 6.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{graficos/Boxplot_de_Conceito_ENADE_-_Contínuo_por_Categoria_Administrativa.png}
+    \label{rel-cat-enade}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{graficos/Boxplot_de_Conceito_ENADE_-_Contínuo_por_Modalidade_de_Ensino.png}
+    \label{rel-mod-enade}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Frequência por Categoria Administrativa e Intervalo de IGC (SC)}
+\label{contingencia-igc-cat}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c c c c c c c c}
+\hline
+\textbf{Categoria} & \textbf{[0.923,1.35)} & \textbf{[1.35,1.77)} & \textbf{[1.77,2.2)} & \textbf{[2.2,2.62)} & \textbf{[2.62,3.05)} & \textbf{[3.05,3.47)} & \textbf{[3.47,3.9)} & \textbf{[3.9,4.32]} \\
+\hline
+Comunitária/Confessional       & 0 & 0 & 0  & 2  & 5  & 4  & 2 & 0 \\
+Especial                       & 0 & 0 & 0  & 1  & 0  & 0  & 0 & 0 \\
+Privada com fins lucrativos     & 1 & 2 & 6  & 20 & 16 & 5  & 0 & 0 \\
+Privada sem fins lucrativos     & 0 & 1 & 6  & 12 & 13 & 10 & 1 & 0 \\
+Pública Estadual                & 0 & 0 & 0  & 0  & 0  & 0  & 1 & 0 \\
+Pública Federal                 & 0 & 0 & 0  & 0  & 0  & 2  & 1 & 1 \\
+Pública Municipal               & 0 & 0 & 0  & 1  & 1  & 1  & 0 & 0 \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+Por fim, ao analisar a relação entre as variáveis qualitativas, percebe-se que a modalidade Educação a Distância (EaD) tem ganhado espaço considerável, sobretudo nas instituições privadas com fins lucrativos, o que indica uma adaptação dessas instituições às demandas de flexibilidade e alcance ampliado de estudantes. Esse crescimento da EaD reflete a tendência nacional de diversificação das modalidades de ensino superior e o investimento em tecnologia educacional.
+
+Todavia, ao observar o gráfico abaixo, nota-se que a maior parte das universidades ainda mantém a modalidade presencial como predominante. Esse predomínio evidencia que, apesar da expansão do EaD, a educação presencial continua sendo a principal estratégia para garantir qualidade acadêmica, interação direta entre alunos e professores e experiência formativa completa. Portanto, embora a EaD esteja em ascensão, ela ainda não substitui o ensino presencial, servindo mais como complemento do que como substituto.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{graficos/proporcao_modalidade_por_categoria.png}
+\end{figure}
