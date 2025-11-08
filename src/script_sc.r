@@ -1,5 +1,5 @@
 # Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
-setwd("~/Documentos/ENADE-Estatisticas")
+setwd("~/Documentos/UFSC/ENADE-Estatisticas")
 
 # Vamos reutilizar os dados agrupados em script_geral.r
 source(file="src/script_geral.r")
@@ -209,16 +209,13 @@ vars_sc_para_analise <- list(
 # Criando uma tabela única com as principais medidas de resumo
 tabela_medidas_resumo_sc <- data.frame(
   Indicador = names(vars_sc_para_analise),
-  Media = sapply(vars_sc_para_analise, mean, na.rm = TRUE),
-  Mediana = sapply(vars_sc_para_analise, median, na.rm = TRUE),
-  
-  # ------------- MEDIDAS DE DISPERSÃO ------------- #
-  
-  Desvio_Padrao = sapply(vars_sc_para_analise, sd, na.rm = TRUE),
-  Variancia = sapply(vars_sc_para_analise, var, na.rm = TRUE),
+  Media = sapply(vars_sc_para_analise, function(x) mean(x, na.rm = TRUE)),
+  Mediana = sapply(vars_sc_para_analise, function(x) median(x, na.rm = TRUE)),
+  Desvio_Padrao = sapply(vars_sc_para_analise, function(x) sd(x, na.rm = TRUE)),
+  Variancia = sapply(vars_sc_para_analise, function(x) var(x, na.rm = TRUE)),
   CV = sapply(vars_sc_para_analise, function(x) sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE) * 100),
-  Minimo = sapply(vars_sc_para_analise, min, na.rm = TRUE),
-  Maximo = sapply(vars_sc_para_analise, max, na.rm = TRUE)
+  Minimo = sapply(vars_sc_para_analise, function(x) min(x, na.rm = TRUE)),
+  Maximo = sapply(vars_sc_para_analise, function(x) max(x, na.rm = TRUE))
 )
 
 # Adicionando a Amplitude (Max - Min)
