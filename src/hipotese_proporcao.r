@@ -1,31 +1,25 @@
 # --- Pacotes ---
 library(dplyr)
 
-# --- Filtrando os dados ---
-# Mantém apenas cursos de instituições públicas federais
-federais_igc <- data_IGC_SC %>%
-  filter(categoria_administrativa == "Pública Federal") %>%
-  select(igc_.continuo.) %>%
-  filter(!is.na(igc_.continuo.))
+# --- Amostra aleatória de instituições ---
+set.seed(123)  # garante reprodutibilidade
+amostra_n <- 89
+amostra_instituicoes <- data_IGC_SC %>%
+  sample_n(amostra_n)
 
-# --- Criando variável indicadora ---
-# 1 se IGC ≥ 4 (curso de alto desempenho), 0 caso contrário
-federais_igc <- federais_igc %>%
-  mutate(igc_alto = ifelse(igc_.continuo. >= 4, 1, 0))
-
-# --- Contagem de sucessos e total ---
-sucesso <- sum(federais_igc$igc_alto)
-total <- nrow(federais_igc)
+# --- Contagem de instituições federais ---
+sucesso <- sum(amostra_instituicoes$categoria_administrativa == "Pública Federal")
+total <- nrow(amostra_instituicoes)
 prop_observada <- sucesso / total
 
-cat("Número de cursos federais:", total, "\n")
-cat("Cursos com IGC ≥ 4:", sucesso, "\n")
+cat("Tamanho da amostra:", total, "\n")
+cat("Número de instituições federais na amostra:", sucesso, "\n")
 cat("Proporção observada:", round(prop_observada, 3), "\n\n")
 
-# --- Teste de hipótese para proporção única ---
-# H0: p = 0.7
-# H1: p > 0.7
-teste_prop <- prop.test(x = sucesso, n = total, p = 0.7, alternative = "greater", correct = FALSE)
+# --- Teste de hipótese para proporção única (unilateral) ---
+# H0: p = 0.25
+# H1: p > 0.25
+teste_prop <- prop.test(x = sucesso, n = total, p = 0.25, alternative = "greater", correct = FALSE)
 
 # --- Exibir resultado ---
 print(teste_prop)
@@ -33,7 +27,7 @@ print(teste_prop)
 # --- Interpretação ---
 cat("\nInterpretação:\n")
 if (teste_prop$p.value < 0.05) {
-  cat("Rejeita-se H0: A proporção de cursos com IGC ≥ 4 é significativamente maior que 70%.\n")
+  cat("Rejeita-se H0: A proporção de instituições federais é significativamente maior que 25%.\n")
 } else {
-  cat("Não se rejeita H0: Não há evidências de que a proporção de cursos com IGC ≥ 4 seja maior que 70%.\n")
+  cat("Não se rejeita H0: Não há evidências de que a proporção de instituições federais seja maior que 25%.\n")
 }
