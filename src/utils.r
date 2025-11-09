@@ -1,4 +1,5 @@
-setwd("~/Documentos/UFSC/ENADE-Estatisticas")
+# Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
+setwd("C:/Users/ruana/Desktop/ENADE-Estatisticas-hipoteses_correlacao_regressao/")
 
 salvar_frequencia_continuo <- function(valores, arquivo_saida, right = FALSE, include.lowest = TRUE) {
   # Número de classes pelo método de Sturges
