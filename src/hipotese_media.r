@@ -41,4 +41,3 @@ print(
     theme_minimal() +
     theme(legend.position = "none")
 )
-

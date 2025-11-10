@@ -1,5 +1,5 @@
-# Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
-setwd("C:/Users/ruana/Desktop/ENADE-Estatisticas-hipoteses_correlacao_regressao/")
+# --- Diretório ---
+setwd("~/Documentos/UFSC/ENADE-Estatisticas")
 
 # Carrega os dados filtrados de Santa Catarina
 source(file = "src/script_sc.r")
@@ -96,4 +96,3 @@ n_mod <- n(n0, N_mod)
 cat("\n--- Modalidade de Ensino ---\n")
 cat("N:", N_mod, "\n")
 cat("n:", ceiling(n_mod), "\n")
-

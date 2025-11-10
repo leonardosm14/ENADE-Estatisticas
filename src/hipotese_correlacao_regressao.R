@@ -1,5 +1,5 @@
 # Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
-setwd("C:/Users/ruana/Desktop/ENADE-Estatisticas-hipoteses_correlacao_regressao/")
+setwd("~/Documentos/UFSC/ENADE-Estatisticas")
 
 # ---- Filtragem das tabelas ----
 
@@ -64,4 +64,3 @@ plot(data_corre_reg$idd, data_corre_reg$conceito_enade,
 
 #Plot da Linha de regressão
 abline(modelo, col = "red", lwd = 2)
-
