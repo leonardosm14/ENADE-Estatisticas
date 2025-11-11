@@ -15,6 +15,8 @@ Essas inclinações, porém, são muito leves para terem uma influência signifi
 
 Já ao observarmos as variáveis qualitativas, a modalidade de ensino presencial domina fortemente sobre a educação a distância, com cerca de 77\% dos cursos. Enquanto isso, as categorias administrativas públicas concentram por volta de 5.6\% das instituições de ensino. Nessa variáveis é possível perceber que os intervalos de confiança de 95\% para estimar suas proporções são mais extensos que os das quantitativas, sendo (72.5957, 82.071) para modalidade de ensino Presencial e (0.834, 10.4019) para categorías administrativas  Públicas.
 
+O \textit{script} R utilizado para calcular os intervalos pode ser observado no anexo B.
+
 \subsection{Testes de Hipótese e Resultados}
 
 \subsubsection{Hipótese sobre a Média}
@@ -27,7 +29,7 @@ O objetivo da análise foi comparar a média do Conceito Preliminar de Curso (CP
 	\item Hipótese alternativa (H$_1$): A média do CPC em cursos com ensino presencial em Santa Catarina é maior que a média do CPC em cursos com ensino a distância (i.e., $\mu_\text{Presencial} > \mu_\text{EaD}$).
 \end{itemize}
 
-Para a análise, foi selecionada uma amostra aleatória de $n = 426$ cursos pertencentes às duas modalidades de interesse. Em seguida, foram extraídos os valores do CPC contínuo para cada grupo, e aplicou-se o teste t de Welch, que não pressupõe igualdade de variâncias entre as amostras. Para isso, utilizou-se a função t.test do R, com o parâmetro \texttt{var.equal = FALSE}, nível de confiança de 95\% (\texttt{conf.level = 0.95})  -- assumindo um nível de significância de 5\% -- e \texttt{alternative = "greater"}, aplicando assim um teste unilateral à direita, pois o interesse era verificar se as médias dos cursos presenciais eram significativamente maiores. O \textit{script} em R utilizado pode ser consultado no Anexo 2.
+Para a análise, foi selecionada uma amostra aleatória de $n = 426$ cursos pertencentes às duas modalidades de interesse. Em seguida, foram extraídos os valores do CPC contínuo para cada grupo, e aplicou-se o teste t de Welch, que não pressupõe igualdade de variâncias entre as amostras. Para isso, utilizou-se a função t.test do R, com o parâmetro \texttt{var.equal = FALSE}, nível de confiança de 95\% (\texttt{conf.level = 0.95})  -- assumindo um nível de significância de 5\% -- e \texttt{alternative = "greater"}, aplicando assim um teste unilateral à direita, pois o interesse era verificar se as médias dos cursos presenciais eram significativamente maiores. O \textit{script} em R utilizado pode ser consultado no Anexo C.
 
 Os resultados do teste indicaram $t = 4.6738$, graus de liberdade aproximados df $= 162.24$ e p-valor $= 3,09 \times 10^{-6}$. As médias amostrais foram 2,8942 para os cursos presenciais e 2,5898 para os cursos a distância. O intervalo de confiança unilateral de 95\% para a diferença das médias foi $[0,1967, +\infty)$, o que significa que, com 95\% de confiança, a média dos cursos presenciais excede a média dos cursos EaD em pelo menos aproximadamente 0,197 pontos. O gráfico da Figura \ref{fig:cpc_modalidade} ilustra essa diferença, mostrando uma distribuição de CPCs mais elevada entre os cursos presenciais.
 
@@ -95,7 +97,7 @@ Para testar a hipótese, deve-se primeiro definir o modelo. O modelo de regress�
 A hipótese nula será aceita caso o valor de $\beta_1$ seja igual a 0, ou seja, o valor do IDD não tem influência sobre o valor do Conceito Enade.
 
 Utilizando o R, analisa-se a regressão e calcula-se os parâmetros utilizando os dados presentes na tabela resultante das amostras de IDD e Conceito Enade. Os resultados obtidos foram: intercepto ($\beta_0 = 1{,}00395$) e coeficiente angular ($\beta_1 = 0{,}59984$), erro padrão residual de $0{,}5829$ e \textit{p-valor} $< 2{,}2 \times 10^{-16}$, com o coeficiente de determinação ajustado ($R^2$) igual a $0{,}481$.
-Na Figura \ref{fig:regressao}, observa-se o gráfico da relação entre as amostras de IDD e Conceito Enade.
+Na Figura 2, observa-se o gráfico da relação entre as amostras de IDD e Conceito Enade.
 
 Percebe-se que o coeficiente angular estimado é de 0.59984, valor significativamente diferente de 0 como propõe a hipótese, além disso, o p-valor calculado se manteve abaixo do nível de significância de 5\%, portanto pode-se rejeitar a hipótese nula H0, concluindo que existe sim a influência de IDD sobre o valor do Conceito Enade.
 
