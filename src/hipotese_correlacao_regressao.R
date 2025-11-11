@@ -1,5 +1,5 @@
 # Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
-setwd("~/Documentos/UFSC/ENADE-Estatisticas")
+setwd("~/Documents/ENADE-Estatisticas")
 
 # ---- Filtragem das tabelas ----
 
@@ -10,9 +10,9 @@ data_IDD_SC_limpo <- na.omit(data_IDD_SC[, c("ano", "codigo_da_ies", "nome_da_ie
 # Faz a amostragem de acordo com os valores de n calculados em "amostragem.r"
 # Note que as amostras são independentes
 set.seed(123)
-amostra_CPC <- data_CPC_SC_limpo[sample(1:nrow(data_CPC_SC_limpo), n_enade, replace = FALSE), ]
+amostra_CPC <- data_CPC_SC_limpo[sample(1:nrow(data_CPC_SC_limpo), 699, replace = FALSE), ]
 rownames(amostra_CPC) <- NULL
-amostra_IDD <- data_IDD_SC_limpo[sample(1:nrow(data_IDD_SC_limpo), n_idd, replace = FALSE), ]
+amostra_IDD <- data_IDD_SC_limpo[sample(1:nrow(data_IDD_SC_limpo), 707, replace = FALSE), ]
 rownames(amostra_IDD) <- NULL
 
 # Faz o merge das tabelas pelas colunas-chave

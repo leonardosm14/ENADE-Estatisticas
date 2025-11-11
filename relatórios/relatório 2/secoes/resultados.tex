@@ -1,1 +1,110 @@
 \section{Resultados e Discussões}
+
+Nesta seção iremos apresentar as análises estatísticas realizadas com base nas variáveis selecionadas na seção de Materiais e Métodos. 
+Inicialmente, serão discutidas as estatísticas descritivas das variáveis quantitativas e qualitativas, seguido pelos testes de hipóteses levantados na seção de Objetivos.
+
+\subsection{Análise das Estatísticas Descritivas}
+
+Observando a base de dados selecionada e suas medições descritivas calculadas sobre as amostras feitas, é possível extrair algumas características das variáveis de interesse analisadas. As variáveis quantitativas, por exemplo, tem uma distribuição perceptivelmente semelhante à normal, com uma concentração de valores em torno da média e gradativa redução em direção às extremidades, porém cada uma possui suas particularidades. 
+
+O Conceito Enade, com média 2,4753 e mediana 2,4753, apresenta certa inclinação a ter valores na parte inferior do intervalo (abaixo de 2,5), com seu desvio padrão de 0,9464 indicando a presença de valores afastados da média influenciando no seu cálculo. O IDD, por sua vez, tem um comportamento semelhante, porém invertido, com média 2.6829, mediana 2.661 e desvio padrão 1.0202 indicando a sua inclinação à parte superior do intervalo. 
+
+O CPC possui uma leve inclinação para a parte de baixo do intervalo (menor que 3), com média 2.8335 e mediana 2.8249, e também concentra seus valores mais ao redor da média, como indicado por seu desvio padrão de 0.6381, indicando menores valores nas extremidades. O IGC apresenta um comportamento muito semelhante, com média 2.6834 e mediana 2.6845, com desvio padrão ainda menor de 0.5985.
+
+Essas inclinações, porém, são muito leves para terem uma influência significativa nos intervalos de confiança de $\gamma=95\%$ para a média dessas variáveis, sendo que os de Conceito Enade (2.405, 2.5456) e IDD (2.6076, 2.7582) compartilham uma extensão semelhante aos de CPC (2.7727, 2.8942) e IGC (2.5908, 2.776), mostrando sua semelhança em aproximar o valor estimado a partir de uma amostra de tamanho particular para cada variável.
+
+Já ao observarmos as variáveis qualitativas, a modalidade de ensino presencial domina fortemente sobre a educação a distância, com cerca de 77\% dos cursos. Enquanto isso, as categorias administrativas públicas concentram por volta de 5.6\% das instituições de ensino. Nessa variáveis é possível perceber que os intervalos de confiança de 95\% para estimar suas proporções são mais extensos que os das quantitativas, sendo (72.5957, 82.071) para modalidade de ensino Presencial e (0.834, 10.4019) para categorías administrativas  Públicas.
+
+\subsection{Testes de Hipótese e Resultados}
+
+\subsubsection{Hipótese sobre a Média}
+
+O objetivo da análise foi comparar a média do Conceito Preliminar de Curso (CPC) entre cursos com Ensino Presencial e cursos com Ensino a Distância (EaD) em Santa Catarina. A variável utilizada foi o CPC contínuo, enquanto a modalidade de ensino identificou o tipo de curso. As hipóteses formuladas foram:
+
+\begin{itemize}
+    \item Hipótese nula (H$_0$): A média do CPC em cursos com ensino presencial em Santa Catarina é igual a média do CPC em cursos com ensino a distância (i.e., $\mu_\text{Presencial} = \mu_\text{EaD}$).
+
+	\item Hipótese alternativa (H$_1$): A média do CPC em cursos com ensino presencial em Santa Catarina é maior que a média do CPC em cursos com ensino a distância (i.e., $\mu_\text{Presencial} > \mu_\text{EaD}$).
+\end{itemize}
+
+Para a análise, foi selecionada uma amostra aleatória de $n = 426$ cursos pertencentes às duas modalidades de interesse. Em seguida, foram extraídos os valores do CPC contínuo para cada grupo, e aplicou-se o teste t de Welch, que não pressupõe igualdade de variâncias entre as amostras. Para isso, utilizou-se a função t.test do R, com o parâmetro \texttt{var.equal = FALSE}, nível de confiança de 95\% (\texttt{conf.level = 0.95})  -- assumindo um nível de significância de 5\% -- e \texttt{alternative = "greater"}, aplicando assim um teste unilateral à direita, pois o interesse era verificar se as médias dos cursos presenciais eram significativamente maiores. O \textit{script} em R utilizado pode ser consultado no Anexo 2.
+
+Os resultados do teste indicaram $t = 4.6738$, graus de liberdade aproximados df $= 162.24$ e p-valor $= 3,09 \times 10^{-6}$. As médias amostrais foram 2,8942 para os cursos presenciais e 2,5898 para os cursos a distância. O intervalo de confiança unilateral de 95\% para a diferença das médias foi $[0,1967, +\infty)$, o que significa que, com 95\% de confiança, a média dos cursos presenciais excede a média dos cursos EaD em pelo menos aproximadamente 0,197 pontos. O gráfico da Figura \ref{fig:cpc_modalidade} ilustra essa diferença, mostrando uma distribuição de CPCs mais elevada entre os cursos presenciais.
+
+Diante desses resultados, \textbf{rejeita-se a hipótese nula}, pois o p-valor é muito inferior ao nível de significância de 5\%, indicando que a diferença observada não é resultado do acaso. Conclui-se, portanto, que os cursos com ensino presencial apresentam CPC médio significativamente superior aos cursos com ensino a distância em Santa Catarina. Esse resultado sugere um desempenho médio mais elevado dos cursos presenciais segundo o indicador CPC.
+
+\begin{figure}[h]
+    \centering
+    \caption{Distribuição do Conceito Preliminar de Curso (CPC) por Modalidade de Ensino.}
+    \includegraphics[width=0.55\textwidth]{graficos/cpc_presencial_ead.png}
+    \label{fig:cpc_modalidade}
+\end{figure}
+
+\subsubsection{Hipótese sobre a Proporção}
+
+O objetivo desta análise foi verificar se a proporção de instituições federais em Santa Catarina é diferente de 25\%, buscando contrariar a hipótese nula. A variável analisada foi a \textit{categoria administrativa}, sendo considerado ``sucesso'' cada instituição classificada como Pública Federal. As hipóteses formuladas foram:
+
+\begin{itemize}
+    \item Hipótese nula (H$_0$): A proporção de instituições federais em Santa Catarina é igual a 25\% (i.e., $p = 0,25$).
+    \item Hipótese alternativa (H$_1$): A proporção de instituições federais em Santa Catarina é diferente de 25\% (i.e., $p \neq 0,25$).
+\end{itemize}
+
+Foi selecionada uma amostra aleatória simples de $n = 150$ instituições, das quais 8 foram identificadas como federais, resultando em uma proporção amostral de $\hat{p} = 0,0533$. Aplicou-se o teste de proporção única (\texttt{prop.test} no R) sem correção de continuidade e com nível de confiança de 95\%. O resultado indicou uma estatística qui-quadrado de $\chi^2 = 30,942$, equivalente a uma estatística padronizada $z = -5,56$, com \textit{p}-valor de aproximadamente $2,66 \times 10^{-8}$. O intervalo de confiança de 95\% para a proporção verdadeira foi estimado em $[0,027; 0,102]$.
+
+Como o valor calculado de $z = -5,56$ está muito além do limite crítico bilateral de $z_\text{crítico} = \pm 1,96$, o ponto amostral situa-se claramente dentro da região de rejeição de $H_0$. Essa relação pode ser visualizada na Figura~\ref{fig:testebilateral}, que mostra a distribuição normal padrão utilizada no teste, destacando as regiões críticas em vermelho e o valor observado de $z$ em azul.
+
+Dado que o \textit{p}-valor é muito inferior ao nível de significância de 5\%, \textbf{rejeita-se a hipótese nula}, concluindo que há evidências estatísticas de que a proporção de instituições federais em Santa Catarina é significativamente diferente de 25\%. Observa-se, contudo, que a proporção observada (5,3\%) é consideravelmente menor do que o valor hipotetizado, indicando uma sub-representação de instituições federais no estado. Em termos absolutos, a diferença entre a proporção observada e a esperada é de aproximadamente 0,20, ou seja, 19,7 pontos percentuais a menos.
+
+Do ponto de vista prático, esse resultado sugere que a participação das instituições federais em Santa Catarina é inferior ao quarto esperado, o que pode refletir características estruturais do sistema de ensino superior estadual, marcado por forte presença de instituições privadas. Apesar da robustez estatística do teste, é importante considerar que o número de instituições federais observadas (apenas oito) é pequeno, o que pode reduzir a precisão das estimativas. Ainda assim, o intervalo de confiança exclui claramente o valor de 25\%, reforçando a conclusão de que a proporção real é significativamente menor do que a hipotetizada.
+
+\begin{figure}[H]
+    \centering
+    \caption{Distribuição normal padrão do teste bilateral para a proporção de instituições federais ($p = 0,25$), destacando as regiões críticas ($\alpha = 0,05$) e o valor observado de $z = -5,56$.}
+    \includegraphics[width=0.85\textwidth]{graficos/teste_bilateral.pdf}
+    \label{fig:testebilateral}
+\end{figure}
+
+\subsubsection{Hipótese sobre a Correlação}
+
+\begin{itemize}
+    \item Hipótese nula (H$_0$): Não há correlação entre o IDD e o Conceito Enade
+    \item Hipótese Alternativa (H$_1$): Existe correlação entre IDD e Conceito Enade
+\end{itemize}
+
+Para testar a Hipótese, primeiro foram tomadas as tabelas de IDD e CPC filtradas para o estado de Santa Catarina e criadas amostras independentes de semente $= 123$ e $n_\text{CE} = 698$ e $n_\text{IDD} = 706$. 
+
+As entradas foram associadas por meio do código da instituição, código do curso e ano em uma única tabela. Observou-se a presença de valores nulos, o que precisaram ser descartados já que não poderiam ser trabalhados no teste. Ao final, obteve-se uma tabela resultante dos valores de IDD e Conceito Enade relacionados para cada entrada, com um total de 388 entradas.
+
+Realizando o teste de correlação de Pearson em R considerando 5\% de significância ($\alpha$), obteve-se os seguinte resultados: O Coeficiente de Correlação de Pearson (r) $= 0.6945254$ e o p-valor $<2.2\times 10^{-16}$, com grau de liberdade de 386, valor de t calculado igual a 18.966 e intervalo de confiança de 95\% igual a $[0.6391626, 0.7427272]$.
+
+Observou-se uma forte correlação positiva do coeficiente de correlação entre IDD e Conceito Enade ao estar próximo de $r = 1$, além de estar dentro do intervalo de confiança calculado. O p-valor se mostrou muito inferior ao nível de significância adotado (0.05), o que leva a rejeição da hipótese nula H0, ou seja, existe sim uma correlação significativa entre os valores dos indicadores de IDD e o Conceito Enade.
+
+\subsubsection{Hipótese sobre a Regressão}
+
+\begin{itemize}
+    \item Hipótese nula (H$_0$): O IDD não tem influência significativa sobre o Conceito Enade
+	\item Hipótese Alternativa (H$_1$): O IDD tem influência significativa sobre o Conceito Enade
+\end{itemize}
+
+Para testar a hipótese, deve-se primeiro definir o modelo. O modelo de regressão linear ajustado é:
+
+\[
+\text{Conceito Enade} = \beta_0 + \beta_1 \times (\text{IDD}) + \varepsilon
+\]
+
+A hipótese nula será aceita caso o valor de $\beta_1$ seja igual a 0, ou seja, o valor do IDD não tem influência sobre o valor do Conceito Enade.
+
+Utilizando o R, analisa-se a regressão e calcula-se os parâmetros utilizando os dados presentes na tabela resultante das amostras de IDD e Conceito Enade. Os resultados obtidos foram: intercepto ($\beta_0 = 1{,}00395$) e coeficiente angular ($\beta_1 = 0{,}59984$), erro padrão residual de $0{,}5829$ e \textit{p-valor} $< 2{,}2 \times 10^{-16}$, com o coeficiente de determinação ajustado ($R^2$) igual a $0{,}481$.
+Na Figura \ref{fig:regressao}, observa-se o gráfico da relação entre as amostras de IDD e Conceito Enade.
+
+Percebe-se que o coeficiente angular estimado é de 0.59984, valor significativamente diferente de 0 como propõe a hipótese, além disso, o p-valor calculado se manteve abaixo do nível de significância de 5\%, portanto pode-se rejeitar a hipótese nula H0, concluindo que existe sim a influência de IDD sobre o valor do Conceito Enade.
+
+Além disso, pode-se também tirar conclusões adicionais quanto ao coeficiente de determinação ajustado (0.481), indicando que  aproximadamente 48,1\% da variação no valor do Conceito Enade é explicada pelo IDD, sugerindo que cursos de valores maiores de IDD tendem a apresentar melhores valores do Conceito Enade.
+
+
+\begin{figure}[H]
+    \centering
+    \caption{Relação de regressão linear entre IDD e Conceito Enade.}
+    \includegraphics[width=0.65\textwidth]{graficos/Relacao_linear_entre_IDD_e_ENADE.png}
+    \label{fig:regressao}
+\end{figure}

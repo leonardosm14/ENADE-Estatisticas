@@ -1,3 +1,5 @@
+setwd("~/Documents/ENADE-Estatisticas")
+
 # Iremos utilizar a seguinte convenção:
 #   dataA <- ano de 2021 -> então, teremos dataA_CPC, dataA_IDD e dataA_IGC
 #   dataB <- ano de 2022 -> então, teremos dataB_CPC, dataB_IDD e dataB_IGC

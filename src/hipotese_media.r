@@ -1,3 +1,5 @@
+setwd("~/Documents/ENADE-Estatisticas")
+
 # --- Pacotes ---
 library(dplyr)
 library(ggplot2)
@@ -32,6 +34,7 @@ print(teste_t)
 
 # --- Boxplot comparativo ---
 dev.new()
+pdf("boxplot_modalidade.pdf", width = 7, height = 5)
 print(
   ggplot(dados_amostra, aes(x = modalidade_de_ensino, y = cpc_.continuo., fill = modalidade_de_ensino)) +
     geom_boxplot(alpha = 0.7) +
@@ -41,3 +44,4 @@ print(
     theme_minimal() +
     theme(legend.position = "none")
 )
+dev.off()

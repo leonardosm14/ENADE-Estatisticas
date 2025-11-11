@@ -1,3 +1,5 @@
+setwd("~/Documents/ENADE-Estatisticas")
+
 salvar_frequencia_continuo <- function(valores, arquivo_saida, right = FALSE, include.lowest = TRUE) {
   # Número de classes pelo método de Sturges
   k <- nclass.Sturges(valores)
