@@ -1,6 +1,3 @@
-# Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
-setwd("C:/Users/ruana/Desktop/ENADE-Estatisticas-hipoteses_correlacao_regressao/")
-
 # Vamos reutilizar os dados agrupados em script_geral.r
 source(file="src/script_geral.r")
 source(file="src/utils.r")
@@ -347,4 +344,5 @@ barplot(prop_table,
         cex.names = 0.9)
 legend("topright", legend = rownames(prop_table), fill = c("#FFFF00", "#6e92f5ff"))
 dev.off()
+
 
