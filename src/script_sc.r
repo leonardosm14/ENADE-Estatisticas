@@ -1,4 +1,4 @@
-setwd("~/Documents/ENADE-Estatisticas")
+setwd("~/Documentos/UFSC/ENADE-Estatisticas")
 
 # Vamos reutilizar os dados agrupados em script_geral.r
 source(file="src/script_geral.r")

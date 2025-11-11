@@ -317,7 +317,7 @@ cat("Proporção observada:", round(prop_observada, 3), "\n\n")
 
 # --- Teste de hipótese para proporção única (bilateral) ---
 # H0: p = 0.25
-# H1: p ≠ 0.25
+# H1: p != 0.25
 teste_prop <- prop.test(x = sucesso, n = total, p = 0.25, alternative = "two.sided", correct = FALSE)
 print(teste_prop)
 

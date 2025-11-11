@@ -1,4 +1,4 @@
-setwd("~/Documents/ENADE-Estatisticas")
+setwd("~/Documentos/UFSC/ENADE-Estatisticas")
 
 # Iremos utilizar a seguinte convenção:
 #   dataA <- ano de 2021 -> então, teremos dataA_CPC, dataA_IDD e dataA_IGC

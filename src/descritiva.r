@@ -66,7 +66,7 @@ amostra_me <- dados_me %>%
 # Categoria Administrativa
 set.seed(123)  # para reprodutibilidade
 amostra_ca <- dados_ca %>%
-  sample_n(size = 89, replace = FALSE)
+  sample_n(size = 150, replace = FALSE)
 
 # --- Estatísticas Descritivas ---
 
@@ -127,7 +127,7 @@ cat("Intervalo de Confiança da Proporção de Cursos Presenciais:", round((prop
 publicas <- sum(amostra_ca$categoria_administrativa == "Pública Federal",amostra_ca$categoria_administrativa == "Pública Estadual",amostra_ca$categoria_administrativa == "Pública Munucipal")
 total <- nrow(amostra_ca)
 prop_ca <- (publicas / total)
-erro_ca <- qnorm((1+0.95)/2)*(sqrt(prop_ca*(1-prop_ca)/89))
+erro_ca <- qnorm((1+0.95)/2)*(sqrt(prop_ca*(1-prop_ca)/150))
 
 cat("Proporção de Instituições Públicas:", round(prop_ca*100, 4), "\n")
 cat("Intervalo de Confiança da Proporção de Instituições Públicas:", round((prop_ca-erro_ca)*100, 4), "-", round((prop_ca+erro_ca)*100, 4), "\n")
