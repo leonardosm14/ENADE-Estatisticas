@@ -1,0 +1,58 @@
+\section{Materiais e Métodos}
+
+
+Nesta seção são apresentadas as variáveis quantitativas e qualitativas selecionadas para as análises estatísticas, as quais foram previamente exploradas no trabalho anterior e agora serão utilizadas na etapa de inferência estatística. A base de dados considerada compreende os cursos participantes do ENADE no ciclo trienal de 2021 a 2023, pertencentes ao estado de Santa Catarina, que constitui a população de interesse deste estudo.
+
+Para a realização das inferências estatísticas, será determinado o tamanho de amostra necessário para cada tipo de variável, conforme as expressões apresentadas nas Equações 1a e 1b, aplicadas respectivamente às variáveis qualitativas e quantitativas:
+
+\begin{equation}
+    \left.
+    \begin{array}{l}
+    (a) \hspace{1em} n_0 = \dfrac{z^2 \cdot p \cdot (1 - p)}{d^2} \\[10pt]
+    (b) \hspace{1em} n_0 = \dfrac{z^2 \cdot \sigma^2}{d^2}
+    \end{array}
+    \right\}
+    \quad
+    n = \dfrac{n_0}{1 + \dfrac{n_0}{N}}
+\end{equation}
+
+Nas equações, $n_0$ representa o tamanho amostral inicial e $n$ o tamanho amostral corrigido para populações finitas. O parâmetro $z$ corresponde ao valor crítico da distribuição normal padrão associado ao nível de confiança adotado. Para obtermos um nível de confiança de $95\%$, iremos considerar $z=1,96$. A variância populacional $\sigma^2$ é conhecida através da Tabela \ref{tab-estatisticas_descritivas}. O parâmetro p indica a proporção esperada de ocorrência de um determinado evento. Para nossa amostragem, consideraremos $p = 0,5$, a fim de maximizar a variância $p\cdot(1-p)$. Já a variável $d$ expressa o erro amostral tolerável, frequentemente fixado em $5\%$. E, por fim, $N$ representa o tamanho da população.
+
+\subsection{Variáveis Quantitativas}
+
+\begin{enumerate}
+    
+    \item \textbf{Conceito Enade Contínuo (CE) - Variável Quantitativa Contínua}
+    
+    O Conceito Enade (CE) foi uma variável escolhida por avaliar o desempenho dos cursos de uma instituição de ensino. Sua métrica é baseada nos resultados obtidos por seus estudantes no Enade em relação ao desempenho geral da respectiva área acadêmica em todo o território nacional. Para fins de cálculo, um curso tem que ter pelo menos 2 participantes com resultados válidos no exame para gerar o Conceito Enade, um valor entre 0 e 5. (INEP, 2024).
+    
+    Conforme do anexo 1, que sintetiza as fórmulas supracitadas, o tamanho da amostra aleatória para essa variável será $n = 699$. 
+    
+    \item \textbf{Indicador de Diferença entre os Desempenhos Observados e Esperado Contínuo (IDD) - Variável Quantitativa Contínua}:
+    
+    O IDD foi escolhido por avaliar o quanto um curso de graduação impactou no desenvolvimento de seus estudantes. Ele leva em conta o desempenho dos estudantes no Enade, sua nota de ingresso no ensino superior, a qualidade do curso, entre outras medidas de desempenho, para então comparar o resultado aos dos demais cursos do país. Tudo isso é então compactado em uma variável entre 0 e 5.
+    
+    Conforme o script do anexo  1, o tamanho da amostra aleatória para essa variável será $n =707$. 
+    
+    \item \textbf{Conceito Preliminar de Curso Contínuo (CPC) - Variável Contínua}
+    
+    Por outro lado, o CPC foi uma escolha por avaliar a qualidade dos cursos de graduação. As métricas levadas em conta para o seu cálculo são o desempenho dos estudantes no Enade; a contribuição do curso ao desenvolvimento do aluno (IDD); a titulação e regime de trabalho do corpo docente (Censo da Educação Superior); e a opinião dos estudantes sobre a didática, infraestrutura e oportunidades de evolução acadêmica e profissional que o curso proporciona (Questionário do Estudante) \cite{inep_cpc_2024}. Essa medida é relativa ao resultado médio da área de avaliação em todo o país, gerando uma faixa contínua definida de 1 a 5.
+    
+    Conforme o script do anexo 1, o tamanho da amostra aleatória para essa variável será $n =426$. 
+    
+\end{enumerate}
+
+\subsection{Variáveis Qualitativas}
+
+\begin{enumerate}
+    \item \textbf{Categoria Administrativa - Variável Nominal}
+    
+    Categoria Administrativa aborda o órgão responsável por gerir a instituição de ensino de determinado curso, sendo as 7 categorias possíveis: Pública Municipal, Pública Estadual, Pública Federal, Comunitária/Confessional, Privada sem Fins Lucrativos, Privada com Fins Lucrativos e Especial. Sua escolha vem do interesse de comparar a presença e o desempenho das instituições públicas e privadas no exame.
+    Conforme o script do anexo  1, o tamanho da amostra aleatória para essa variável será $n = 150$. 
+    
+    \item \textbf{Modalidade de Ensino  - Variável Nominal}
+    
+    A Modalidade de Ensino representa como as aulas do curso são administradas aos estudantes, tendo 2 modalidades possíveis: Educação Presencial e Educação a Distância. Por ser um tema recente, essa variável foi incluída para analisar o impacto dessas modalidades no desempenho e qualidade das instituições.
+    Conforme o script do anexo  1, o tamanho da amostra aleatória para essa variável será $n = 300$. 
+
+\end{enumerate}

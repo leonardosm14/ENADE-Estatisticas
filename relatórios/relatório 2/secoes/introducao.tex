@@ -1,0 +1,44 @@
+\section{Introdução}
+
+O \textbf{Exame Nacional de Desempenho dos Estudantes} (ENADE) foi instituído em 2004 pelo Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (INEP) com o objetivo de avaliar o desempenho dos concluintes de cursos de graduação no Brasil. A cada ciclo trienal, determinados cursos em todo o país realizam a prova, que avalia o conhecimento dos estudantes sobre os conteúdos programáticos definidos nas diretrizes curriculares de cada curso \cite{seavi_enade}.
+
+Nesse contexto, o ENADE fornece um conjunto de métricas destinadas à avaliação dos cursos e das instituições de ensino superior, tais como o Conceito Enade (CE), o Conceito Preliminar de Curso (CPC), o Indicador de Diferença entre os Desempenhos Observados e Esperado (IDD) e o Índice Geral de Cursos (IGC). Esses indicadores, juntamente com as variáveis Categoria Administrativa e Modalidade de Ensino dos cursos avaliados, serão detalhados na seção de Materiais e Métodos.
+
+O presente trabalho dá continuidade à análise exploratória realizada no Trabalho 1 da disciplina, ampliando o estudo por meio da aplicação de técnicas de inferência estatística -- a partir dos dados de uma amostra, criamos testes de hipóteses para realizar conclusões e fazer generalizações sobre a população. Assim como na análise anterior, a população considerada corresponde aos cursos do estado de Santa Catarina. A partir desse conjunto de dados, será selecionada uma amostra aleatória, permitindo a realização de inferências estatísticas sobre a população com base nos resultados obtidos anteriormente, apresentados na Tabela \ref{tab-estatisticas_descritivas}.
+
+A partir dos indicadores apresentados pelo ENADE, serão formuladas e testadas hipóteses relacionadas às médias, proporções, correlações e regressões, com o objetivo de aprofundar a compreensão acerca das variáveis quantitativas e qualitativas previamente examinadas.
+
+\begin{table}[H]
+\centering
+\caption{Estatísticas Descritivas dos Indicadores Contínuos (SC)}
+\label{tab-estatisticas_descritivas}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c c c c c c c c}
+\hline
+\textbf{Indicador} & \textbf{Média} & \textbf{Mediana} & \textbf{Desvio Padrão} & \textbf{Variância} & \textbf{CV (\%)} & \textbf{Mínimo} & \textbf{Máximo} & \textbf{Amplitude} \\
+\hline
+Conceito ENADE (Contínuo) & 2.478 & 2.488 & 0.971 & 0.943 & 39.196 & 0     & 4.972 & 4.972 \\
+IDD (Contínuo)             & 2.667 & 2.631 & 0.983 & 0.965 & 36.838 & 0     & 5     & 5     \\
+CPC (Contínuo)             & 2.885 & 2.857 & 0.636 & 0.404 & 22.029 & 0.977 & 4.603 & 3.626 \\
+IGC (Contínuo)             & 2.703 & 2.726 & 0.565 & 0.319 & 20.909 & 0.926 & 4.416 & 3.49  \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+\subsection{Objetivos}
+
+O objetivo principal do trabalho é tomar os indicadores apresentados anteriormente e que também foram utilizados no trabalho anterior e testar hipóteses levantadas sobre eles, sendo essas hipóteses aplicadas sobre a média e proporção dos dados de indicadores, além de hipóteses sobre a correlação e regressão entre duas dessas variáveis.
+
+Com base nos dados dos indicadores, foram definidas as hipóteses a serem analisadas no presente trabalho:
+
+\begin{enumerate}
+    \item \textbf{Hipótese sobre a média:}\\
+    H$_0$: A média do CPC em cursos com ensino presencial em Santa Catarina é igual a média do CPC em cursos com ensino a distância.
+    \item \textbf{Hipótese sobre a proporção:}\\
+    H$_0$: A proporção de instituições federais em Santa Catarina é de 25\%.
+    \item \textbf{Hipótese sobre a Correlação:} \\
+    H$_0$: Não há correlação entre o IDD e o Conceito Enade.
+    \item \textbf{Hipóteses sobre a Regressão:} \\
+    H$_0$: O IDD não tem influência significativa sobre o Conceito Enade.
+\end{enumerate}

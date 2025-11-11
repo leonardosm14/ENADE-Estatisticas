@@ -1,0 +1,160 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[backend=biber,style=abnt]{biblatex}
+\addbibresource{referencias.bib}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[top=3cm,right=2cm,left=3cm,bottom=2cm]{geometry}
+\usepackage{commath}
+\usepackage[hidelinks]{hyperref}
+\usepackage{indentfirst}
+\usepackage{pgffor}
+\usepackage{setspace}
+\usepackage{dsfont}
+\usepackage{lastpage}
+\usepackage{float}
+\usepackage{array}
+\usepackage{epstopdf}
+\usepackage{multirow}
+\usepackage{imakeidx}
+\usepackage{multicol}
+\usepackage{mathptmx}
+%\usepackage[alf]{abntex2cite}
+\usepackage{pdfpages}
+\usepackage{scrextend}
+\usepackage{hyperref}
+\usepackage{footnote}
+\usepackage[ruled,vlined]{algorithm2e}
+
+\pagestyle{plain}
+\makeatletter
+\renewcommand{\ps@plain}{%
+  \renewcommand{\@oddhead}{}%
+  \renewcommand{\@evenhead}{}%
+  \renewcommand{\@oddfoot}{\hfill\thepage}%
+  \renewcommand{\@evenfoot}{\hfill\thepage}%
+}
+\makeatother
+
+% Margens
+\geometry{margin=2cm}
+
+% Fonte Arial
+\renewcommand{\familydefault}{\sfdefault} % usa fonte sans serif
+\usepackage{helvet} % substitui por Helvetica (próxima ao Arial)
+
+% Espaçamento
+\usepackage{setspace}
+\onehalfspacing % espaçamento 1,5
+
+% Português
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Para Código
+
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{cleveref}
+
+\crefname{callblocklong}{box}{Boxes}   % singular / plural
+\Crefname{callblocklong}{Box}{Boxes}   % capitalized form
+
+\newtcblisting[auto counter,number within=section,crefname={Box}{Boxes},Crefname={Box}{Boxes}]{callblocklong}[2][]{%
+  breakable,
+  colback=white!0!white,
+  colframe=white!70!gray,
+  colbacktitle=white!70!gray,
+  coltitle=black!0!black,
+  sharp corners,
+  fonttitle=\bfseries,
+  title=Listing~\thetcbcounter: #2,
+  top=1mm,
+  bottom=1mm,
+  before skip balanced=10pt,
+  after skip balanced=10pt,
+  listing only,
+  listing engine=listings,
+  listing options={
+    basicstyle=\ttfamily,
+    breaklines=true,
+    aboveskip=0pt,
+    belowskip=0pt,
+    columns=fullflexible,
+    escapeinside={(*@}{@*)},
+    inputencoding=utf8,        % <--- permite UTF-8
+    extendedchars=true,        % <--- habilita caracteres especiais
+    literate=
+      {á}{{\'a}}1
+      {é}{{\'e}}1
+      {í}{{\'i}}1
+      {ó}{{\'o}}1
+      {ú}{{\'u}}1
+      {à}{{\`a}}1
+      {è}{{\`e}}1
+      {ì}{{\`i}}1
+      {ò}{{\`o}}1
+      {ù}{{\`u}}1
+      {â}{{\^a}}1
+      {ê}{{\^e}}1
+      {î}{{\^i}}1
+      {ô}{{\^o}}1
+      {û}{{\^u}}1
+      {ã}{{\~a}}1
+      {õ}{{\~o}}1
+      {ç}{{\c{c}}}1
+      {Á}{{\'A}}1
+      {É}{{\'E}}1
+      {Í}{{\'I}}1
+      {Ó}{{\'O}}1
+      {Ú}{{\'U}}1
+      {À}{{\`A}}1
+      {È}{{\`E}}1
+      {Ì}{{\`I}}1
+      {Ò}{{\`O}}1
+      {Ù}{{\`U}}1
+      {Â}{{\^A}}1
+      {Ê}{{\^E}}1
+      {Î}{{\^I}}1
+      {Ô}{{\^O}}1
+      {Û}{{\^U}}1
+      {Ã}{{\~A}}1
+      {Õ}{{\~O}}1
+      {Ç}{{\c{C}}}1,
+  },
+  #1
+}
+
+\begin{document}
+
+\input{capa}
+\newpage
+
+\pagestyle{plain}
+\makeatletter
+\renewcommand{\ps@plain}{%
+  \renewcommand{\@oddhead}{}%
+  \renewcommand{\@evenhead}{}%
+  \renewcommand{\@oddfoot}{\hfill\thepage}%
+  \renewcommand{\@evenfoot}{\hfill\thepage}%
+}
+\makeatother
+
+\input{secoes/introducao}
+\input{secoes/materiais}
+\input{secoes/resultados}
+\input{secoes/conclusoes}
+%Referências
+\printbibliography
+\newpage
+\input{secoes/anexos-codigos}
+
+\end{document}
