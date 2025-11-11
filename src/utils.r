@@ -1,6 +1,3 @@
-# Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
-setwd("C:/Users/ruana/Desktop/ENADE-Estatisticas-hipoteses_correlacao_regressao/")
-
 salvar_frequencia_continuo <- function(valores, arquivo_saida, right = FALSE, include.lowest = TRUE) {
   # Número de classes pelo método de Sturges
   k <- nclass.Sturges(valores)
@@ -32,4 +29,5 @@ plotar_relacao <- function(dados, qualitativa, quantitativa) {
   png(filename = arquivo_saida, width = 1500, height = 800)
   boxplot(dados[[quantitativa]] ~ dados[[qualitativa]],main = paste(nome_qt, "por", nome_ql),xlab = nome_ql, ylab = nome_qt,col = "lightblue", las = 1)
   dev.off()
+
 }
