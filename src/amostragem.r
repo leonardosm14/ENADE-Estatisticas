@@ -80,7 +80,7 @@ p <- 0.5
 n0 <- z^2 * p * (1-p) / d^2
 
 # --- 1. Categoria Administrativa ---
-N_cat <- nrow(igc_universidades)
+N_cat <- nrow(data_IGC_SC)
 n_cat <- n(n0, N_cat)
 
 cat("\n--- Categoria Administrativa ---\n")
