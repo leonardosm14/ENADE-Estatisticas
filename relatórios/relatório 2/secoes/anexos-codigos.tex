@@ -1,1 +1,446 @@
 \section{Anexos - Códigos Fonte}
+
+Todos os códigos, bases de dados, gráficos e tabelas podem ser observados em detalhes no repositório: \url{https://github.com/leonardosm14/ENADE-Estatisticas}
+
+\begin{callblocklong}{Anexo A: Amostragem}
+# --- Diretório ---
+setwd("~/Documentos/UFSC/ENADE-Estatisticas")
+
+# Carrega os dados filtrados de Santa Catarina
+source(file = "src/script_sc.r")
+
+# --- Parâmetros fixos padrão ---
+z <- 1.96     # nível de confiança de 95%
+d <- 0.05     # erro amostral tolerável (5%)
+
+# --- Variáveis Quantitativas ---
+
+# --- Funções ---
+n0 <- function(variancia) {
+  return((z^2 * variancia) / (d^2))
+}
+
+n <- function(n0, N) {
+  return(n0 / (1 + (n0 / N)))
+}
+
+# --- 1. Conceito ENADE (Contínuo) ---
+variancia_enade <- var(data_CPC_SC$conceito_enade_.continuo., na.rm = TRUE)
+N_enade <- nrow(data_CPC_SC)
+
+n0_enade <- n0(variancia_enade)
+n_enade <- n(n0_enade, N_enade)
+
+cat("\n--- Conceito ENADE (Contínuo) ---\n")
+cat("Variância:", round(variancia_enade, 4), "\n")
+cat("N:", N_enade, "\n")
+cat("n0:", round(n0_enade, 2), "\n")
+cat("n:", ceiling(n_enade), "\n")
+
+# --- 2. IDD (Contínuo) ---
+variancia_idd <- var(data_IDD_SC$idd_.continuo., na.rm = TRUE)
+N_idd <- nrow(data_IDD_SC)
+
+n0_idd <- n0(variancia_idd)
+n_idd <- n(n0_idd, N_idd)
+
+cat("\n--- IDD (Contínuo) ---\n")
+cat("Variância:", round(variancia_idd, 4), "\n")
+cat("N:", N_idd, "\n")
+cat("n0:", round(n0_idd, 2), "\n")
+cat("n:", ceiling(n_idd), "\n")
+
+# --- 3. CPC (Contínuo) ---
+variancia_cpc <- var(data_CPC_SC$cpc_.continuo., na.rm = TRUE)
+N_cpc <- nrow(data_CPC_SC)
+
+n0_cpc <- n0(variancia_cpc)
+n_cpc <- n(n0_cpc, N_cpc)
+
+cat("\n--- CPC (Contínuo) ---\n")
+cat("Variância:", round(variancia_cpc, 4), "\n")
+cat("N:", N_cpc, "\n")
+cat("n0:", round(n0_cpc, 2), "\n")
+cat("n:", ceiling(n_cpc), "\n")
+
+# --- 4. IGC (Contínuo) ---
+variancia_igc <- var(data_IGC_SC$igc_.continuo., na.rm = TRUE)
+N_igc <- nrow(data_IGC_SC)
+
+n0_igc <- n0(variancia_igc)
+n_igc <- n(n0_igc, N_igc)
+
+cat("\n--- IGC (Contínuo) ---\n")
+cat("Variância:", round(variancia_igc, 4), "\n")
+cat("N:", N_igc, "\n")
+cat("n0:", round(n0_igc, 2), "\n")
+cat("n:", ceiling(n_igc), "\n")
+
+# --- Variáveis Qualitativas ---
+
+p <- 0.5
+
+# n0 é comum a todos
+
+n0 <- z^2 * p * (1-p) / d^2
+
+# --- 1. Categoria Administrativa ---
+N_cat <- nrow(data_IGC_SC)
+n_cat <- n(n0, N_cat)
+
+cat("\n--- Categoria Administrativa ---\n")
+cat("N:", N_cat, "\n")
+cat("n:", ceiling(n_cat), "\n")
+
+
+# --- 2. Modalidade de Ensino ---
+
+N_mod <- nrow(data_CPC_SC)   # total de cursos (cada curso tem uma modalidade)
+n_mod <- n(n0, N_mod)
+
+cat("\n--- Modalidade de Ensino ---\n")
+cat("N:", N_mod, "\n")
+cat("n:", ceiling(n_mod), "\n")
+
+\end{callblocklong}
+
+\begin{callblocklong}{Anexo B: Análise Descritiva}
+# --- Pacotes ---
+library("dplyr")
+
+# Carrega os dados filtrados de Santa Catarina
+source(file = "script_sc.r")
+
+# --- Filtrando os dados ---
+
+# ENADE
+dados_enade <- data_CPC_SC %>%
+  select(conceito_enade_.continuo.) %>%
+  filter(!is.na(conceito_enade_.continuo.))
+
+# CPC
+dados_cpc <- data_CPC_SC %>%
+  select(cpc_.continuo.) %>%
+  filter(!is.na(cpc_.continuo.))
+
+# IDD
+dados_idd <- data_IDD_SC %>%
+  select(idd_.continuo.) %>%
+  filter(!is.na(idd_.continuo.))
+
+# IGC
+dados_igc <- data_IGC_SC %>%
+  select(igc_.continuo.) %>%
+  filter(!is.na(igc_.continuo.))
+
+# Modalidade de Ensino
+dados_me <- data_CPC_SC %>%
+  select(modalidade_de_ensino) %>%
+  filter(!is.na(modalidade_de_ensino))
+
+# Categoria Administrativa
+dados_ca <- data_IGC_SC %>%
+  select(categoria_administrativa) %>%
+  filter(!is.na(categoria_administrativa))
+
+# --- Criar amostra aleatória de tamanho n = 426, conforme "amostragem.r" ---
+
+# ENADE
+set.seed(123)  # para reprodutibilidade
+amostra_enade <- dados_enade %>%
+  sample_n(size = 699, replace = FALSE)
+
+#CPC
+set.seed(123)  # para reprodutibilidade
+amostra_cpc <- dados_cpc %>%
+  sample_n(size = 426, replace = FALSE)
+
+# IDD
+set.seed(123)  # para reprodutibilidade
+amostra_idd <- dados_idd %>%
+  sample_n(size = 707, replace = FALSE)
+
+# IGC
+set.seed(123)  # para reprodutibilidade
+amostra_igc <- dados_igc %>%
+  sample_n(size = 163, replace = FALSE)
+
+# Modalidade de Enino
+set.seed(123)  # para reprodutibilidade
+amostra_me <- dados_me %>%
+  sample_n(size = 300, replace = FALSE)
+
+# Categoria Administrativa
+set.seed(123)  # para reprodutibilidade
+amostra_ca <- dados_ca %>%
+  sample_n(size = 89, replace = FALSE)
+
+# --- Estatísticas Descritivas ---
+
+# ENADE
+media_enade <- mean(amostra_enade$conceito_enade_.continuo.)
+mediana_enade <- median(amostra_enade$conceito_enade_.continuo.)
+dp_enade <- sd(amostra_enade$conceito_enade_.continuo.)
+erro_enade = qt((1+0.95)/2, 699-1) * (dp_enade/(sqrt(699)))
+
+cat("Média Conceito Enade:", round(media_enade, 4), "\n")
+cat("Mediana Conceito Enade:", round(media_enade, 4), "\n")
+cat("Desvio Padrão Conceito Enade:", round(dp_enade, 4), "\n")
+cat("Intervalo de Confiança da Média do Conceito Enade:", round(media_enade-erro_enade, 4), "-", round(media_enade+erro_enade, 4), "\n")
+
+# CPC
+media_cpc <- mean(amostra_cpc$cpc_.continuo.)
+mediana_cpc <- median(amostra_cpc$cpc_.continuo.)
+dp_cpc <- sd(amostra_cpc$cpc_.continuo.)
+erro_cpc = qt((1+0.95)/2, 426-1) * (dp_cpc/(sqrt(426)))
+
+cat("Média CPC:", round(media_cpc, 4), "\n")
+cat("Mediana CPC:", round(mediana_cpc, 4), "\n")
+cat("Desvio Padrão CPC:", round(dp_cpc, 4), "\n")
+cat("Intervalo de Confiança da Média do CPC:", round(media_cpc-erro_cpc, 4), "-", round(media_cpc+erro_cpc, 4), "\n")
+
+# IDD
+media_idd <- mean(amostra_idd$idd_.continuo.)
+mediana_idd <- median(amostra_idd$idd_.continuo.)
+dp_idd <- sd(amostra_idd$idd_.continuo.)
+erro_idd = qt((1+0.95)/2, 707-1) * (dp_idd/(sqrt(707)))
+
+cat("Média IDD:", round(media_idd, 4), "\n")
+cat("Mediana IDD:", round(mediana_idd, 4), "\n")
+cat("Desvio Padrão IDD:", round(dp_idd, 4), "\n")
+cat("Intervalo de Confiança da Média do IDD:", round(media_idd-erro_idd, 4), "-", round(media_idd+erro_idd, 4), "\n")
+
+# IGC
+media_igc <- mean(amostra_igc$igc_.continuo.)
+mediana_igc <- median(amostra_igc$igc_.continuo.)
+dp_igc <- sd(amostra_igc$igc_.continuo.)
+erro_igc = qt((1+0.95)/2, 163-1) * (dp_igc/(sqrt(163)))
+
+cat("Média IGC:", round(media_igc, 4), "\n")
+cat("Mediana IGC:", round(mediana_igc, 4), "\n")
+cat("Desvio Padrão IGC:", round(dp_igc, 4), "\n")
+cat("Intervalo de Confiança da Média do IGC:", round(media_igc-erro_igc, 4), "-", round(media_igc+erro_igc, 4), "\n")
+
+# Modalidade de ensino
+presencial <- sum(amostra_me$modalidade_de_ensino == "Educação Presencial")
+total <- nrow(amostra_me)
+prop_me <- (presencial / total)
+erro_me <- qnorm((1+0.95)/2)*(sqrt(prop_me*(1-prop_me)/300))
+
+cat("Proporção de Cursos Presenciais:", round(prop_me*100, 4), "\n")
+cat("Intervalo de Confiança da Proporção de Cursos Presenciais:", round((prop_me-erro_me)*100, 4), "-", round((prop_me+erro_me)*100, 4), "\n")
+
+# Categoria Adiministrativa
+publicas <- sum(amostra_ca$categoria_administrativa == "Pública Federal",amostra_ca$categoria_administrativa == "Pública Estadual",amostra_ca$categoria_administrativa == "Pública Munucipal")
+total <- nrow(amostra_ca)
+prop_ca <- (publicas / total)
+erro_ca <- qnorm((1+0.95)/2)*(sqrt(prop_ca*(1-prop_ca)/89))
+
+cat("Proporção de Instituições Públicas:", round(prop_ca*100, 4), "\n")
+cat("Intervalo de Confiança da Proporção de Instituições Públicas:", round((prop_ca-erro_ca)*100, 4), "-", round((prop_ca+erro_ca)*100, 4), "\n")
+
+\end{callblocklong}
+
+
+\begin{callblocklong}{Anexo C: Hipótese sobre a Média}
+setwd("~/Documents/ENADE-Estatisticas")
+
+# --- Pacotes ---
+library(dplyr)
+library(ggplot2)
+
+# --- Filtrando os dados ---
+dados_modalidade <- data_CPC_SC %>%
+  filter(modalidade_de_ensino %in% c("Educação Presencial", "Educação a Distância")) %>%
+  select(modalidade_de_ensino, cpc_.continuo.) %>%
+  filter(!is.na(cpc_.continuo.))
+
+# --- Criar amostra aleatória de tamanho n = 426, conforme "amostragem.r" ---
+set.seed(123)  # para reprodutibilidade
+dados_amostra <- dados_modalidade %>%
+  sample_n(size = 426, replace = FALSE)
+
+# --- Separando os grupos ---
+presencial <- dados_amostra %>%
+  filter(modalidade_de_ensino == "Educação Presencial") %>%
+  pull(cpc_.continuo.)
+
+ead <- dados_amostra %>%
+  filter(modalidade_de_ensino == "Educação a Distância") %>%
+  pull(cpc_.continuo.)
+
+# --- Teste t de Welch ---
+teste_t <- t.test(presencial, ead,
+                  alternative = "greater",   # teste unilateral à direita
+                  var.equal = FALSE)         # Welch (variâncias diferentes)
+
+# --- Exibir resultado ---
+print(teste_t)
+
+# --- Boxplot comparativo ---
+dev.new()
+pdf("boxplot_modalidade.pdf", width = 7, height = 5)
+print(
+  ggplot(dados_amostra, aes(x = modalidade_de_ensino, y = cpc_.continuo., fill = modalidade_de_ensino)) +
+    geom_boxplot(alpha = 0.7) +
+    stat_summary(fun = mean, geom = "point", shape = 23, size = 3, fill = "white") +
+    labs(x = "Modalidade de Ensino",
+         y = "CPC (Contínuo)") +
+    theme_minimal() +
+    theme(legend.position = "none")
+)
+dev.off()   
+
+\end{callblocklong}
+
+\begin{callblocklong}{Anexo D: Hipótese sobre a Proporção}
+setwd("~/Documents/ENADE-Estatisticas")
+source(file = "src/script_sc.r")
+
+# --- Pacotes ---
+library(dplyr)
+
+# --- Amostra aleatória de instituições ---
+set.seed(123)
+amostra_n <- 150
+amostra_instituicoes <- data_IGC_SC %>%
+  sample_n(amostra_n)
+
+# --- Contagem de instituições federais ---
+sucesso <- sum(amostra_instituicoes$categoria_administrativa == "Pública Federal")
+total <- nrow(amostra_instituicoes)
+prop_observada <- sucesso / total
+
+cat("Tamanho da amostra:", total, "\n")
+cat("Número de instituições federais na amostra:", sucesso, "\n")
+cat("Proporção observada:", round(prop_observada, 3), "\n\n")
+
+# --- Teste de hipótese para proporção única (bilateral) ---
+# H0: p = 0.25
+# H1: p ≠ 0.25
+teste_prop <- prop.test(x = sucesso, n = total, p = 0.25, alternative = "two.sided", correct = FALSE)
+print(teste_prop)
+
+# --- Interpretação ---
+cat("\nInterpretação:\n")
+if (teste_prop$p.value < 0.05) {
+  cat("Rejeita-se H0: A proporção de instituições federais é significativamente diferente de 25%.\n")
+} else {
+  cat("Não se rejeita H0: Não há evidências de que a proporção de instituições federais seja diferente de 25%.\n")
+}
+
+# --- Gráfico do teste bilateral e salvamento em PDF ---
+p0 <- 0.25
+phat <- prop_observada
+n <- total
+z <- (phat - p0) / sqrt(p0 * (1 - p0) / n)
+print(z)
+alpha <- 0.05
+zcrit <- qnorm(1 - alpha / 2)
+print(zcrit)
+
+# Caminho de saída
+pdf("teste_bilateral.pdf", width = 10, height = 5)
+
+# Dados da distribuição normal padrão
+x <- seq(-6, 6, length = 1000)
+y <- dnorm(x)
+
+# Plot principal
+plot(x, y, type = "l", lwd = 2, col = "black",
+     main = "Teste Bilateral para Proporção",
+     xlab = "Estatística Z", ylab = "Densidade de probabilidade")
+
+# Regiões críticas
+polygon(c(x[x >= zcrit], rev(x[x >= zcrit])),
+        c(y[x >= zcrit], rep(0, sum(x >= zcrit))),
+        col = rgb(1, 0, 0, 0.4), border = NA)
+polygon(c(x[x <= -zcrit], rev(x[x <= -zcrit])),
+        c(y[x <= -zcrit], rep(0, sum(x <= -zcrit))),
+        col = rgb(1, 0, 0, 0.4), border = NA)
+
+# Linha do valor observado
+abline(v = z, col = "blue", lwd = 2)
+abline(v = c(-zcrit, zcrit), col = "red", lty = 2)
+
+# Legenda e texto
+legend("topright",
+       legend = c("Z observado", "Regioes criticas (alpha = 0.05)"),
+       col = c("blue", "red"), lwd = 2, lty = c(1, 2), bty = "n")
+
+
+text(z, dnorm(z) + 0.02, labels = sprintf("z = %.2f", z),
+     col = "blue", pos = ifelse(z < 0, 2, 4))
+
+dev.off()
+\end{callblocklong}
+
+\begin{callblocklong}{Anexo E: Hipótese sobre a Correlação e Regressão}
+# Diretório da base de dados - Talvez precisa alterar, dependendo de onde o repositório estiver clonado.
+setwd("~/Documents/ENADE-Estatisticas")
+
+# ---- Filtragem das tabelas ----
+
+# Retira eventuais entradas nulas
+data_CPC_SC_limpo <- na.omit(data_CPC_SC[, c("ano", "codigo_da_ies", "nome_da_ies", "codigo_do_curso", "area_de_avaliacao", "conceito_enade_.continuo.")])
+data_IDD_SC_limpo <- na.omit(data_IDD_SC[, c("ano", "codigo_da_ies", "nome_da_ies", "codigo_do_curso", "area_de_avaliacao", "idd_.continuo.")])
+
+# Faz a amostragem de acordo com os valores de n calculados em "amostragem.r"
+# Note que as amostras são independentes
+set.seed(123)
+amostra_CPC <- data_CPC_SC_limpo[sample(1:nrow(data_CPC_SC_limpo), 699, replace = FALSE), ]
+rownames(amostra_CPC) <- NULL
+amostra_IDD <- data_IDD_SC_limpo[sample(1:nrow(data_IDD_SC_limpo), 707, replace = FALSE), ]
+rownames(amostra_IDD) <- NULL
+
+# Faz o merge das tabelas pelas colunas-chave
+data_merged <- merge(
+  x = amostra_CPC,
+  y = amostra_IDD,
+  by = c("ano", "codigo_da_ies", "codigo_do_curso"),
+  suffixes = c("_CPC", "_IDD")
+)
+
+# Seleciona as colunas principais para análise
+data_corre_reg <- data.frame(
+  ano = data_merged$ano,
+  codigo_da_ies = data_merged$codigo_da_ies,
+  codigo_do_curso = data_merged$codigo_do_curso,
+  nome_da_ies = data_merged$nome_da_ies_CPC,
+  nome_do_curso = data_merged$area_de_avaliacao_CPC,
+  conceito_enade = data_merged$conceito_enade_.continuo.,
+  idd = data_merged$idd_.continuo.
+)
+
+# Remove linhas com valores faltantes (NA) em Enade ou IDD
+data_corre_reg <- subset(data_corre_reg, !is.na(conceito_enade) & !is.na(idd))
+rownames(data_corre_reg) <- NULL
+
+
+# ---- Teste de hipótese sobre correlação ----
+
+
+# Teste de correlação entre ENADE e IDD
+cor.test(data_corre_reg$conceito_enade, data_corre_reg$idd, method = "pearson")
+
+
+# ---- Teste de hipótese sobre regressão ----
+
+
+# Modelo de regressão linear (ENADE dependente de IDD)
+modelo <- lm(conceito_enade ~ idd, data = data_corre_reg)
+
+# Sumário com teste t dos coeficientes
+summary(modelo)
+
+# Gráfico da Relação ENADE e IDD contínuos
+dev.new()
+plot(data_corre_reg$idd, data_corre_reg$conceito_enade,
+     xlab = "IDD", ylab = "Conceito ENADE",
+     main = "Relação linear entre IDD e ENADE",
+     pch = 19, col = "blue")
+
+#Plot da Linha de regressão
+abline(modelo, col = "red", lwd = 2)
+
+\end{callblocklong}
