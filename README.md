@@ -2,7 +2,7 @@
 
 Este repositório apresenta o **Trabalho 1** e o **Trabalho 2** da disciplina de Probabilidade e Estatística (INE5405) da UFSC.
 
-Desenvolvido por: Grupo: Leonardo de Sousa Marques, Rafael Veronezi Ribeiro, Ruan Alboni Ferreira, Thayse Estevo Teixeira.
+Desenvolvido por Leonardo de Sousa Marques, Rafael Veronezi Ribeiro, Ruan Alboni Ferreira, Thayse Estevo Teixeira.
 
 A partir da base de dados do **Exame Nacional de Desempenho dos Estudantes (ENADE)**, o projeto realiza:
 
