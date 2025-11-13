@@ -99,8 +99,6 @@ A partir da base de dados do **Exame Nacional de Desempenho dos Estudantes (ENAD
     │   │   └── tabela_medidas_resumo_sc.csv
     │   ├── tabela_frequencia_categoria_administrativa.csv
     │   └── tabela_frequencia_modalidade_ensino.csv
-    ├── teste_correlacao_regressao.r
-    ├── teste_correlacao_regressao.R
     └── utils.r
 
 ```
