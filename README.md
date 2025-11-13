@@ -1,12 +1,16 @@
-# Trabalho 1 – Probabilidade e Estatística (INE5405) – UFSC
+# Trabalhos 1 & 2 – Probabilidade e Estatística (INE5405) – UFSC
 
-Este repositório apresenta o **Trabalho 1** da disciplina de Probabilidade e Estatística (INE5405) da UFSC.  
+Este repositório apresenta o **Trabalho 1** e o **Trabalho 2** da disciplina de Probabilidade e Estatística (INE5405) da UFSC.
+
+Desenvolvido por: Grupo: Leonardo de Sousa Marques, Rafael Veronezi Ribeiro, Ruan Alboni Ferreira, Thayse Estevo Teixeira.
 
 A partir da base de dados do **Exame Nacional de Desempenho dos Estudantes (ENADE)**, o projeto realiza:
 
 - Geração de tabelas de frequência;  
 - Criação de gráficos de dispersão;  
-- Cálculo de medidas de tendência central e dispersão.  
+- Cálculo de medidas de tendência central e dispersão;
+- Amostragem de Dados;
+- Testes de hipótese para inferência estatística.
 
 ## Estrutura do Projeto:
 ```
@@ -35,26 +39,50 @@ A partir da base de dados do **Exame Nacional de Desempenho dos Estudantes (ENAD
 │   ├── requirements.txt
 │   └── xlsx_to_csv.py
 ├── README.md
-├── relatório
-│   ├── capa.tex
-│   ├── figuras
-│   │   └── logo-ufsc.pdf
-│   ├── graficos
-│   ├── main.tex
-│   ├── referencias.bib
-│   ├── secoes
-│   │   ├── anexos-codigos.tex
-│   │   ├── anexos-graficos.tex
-│   │   ├── conclusoes.tex
-│   │   ├── introducao.tex
-│   │   ├── materiais.tex
-│   │   └── resultados.tex
-│   ├── tabelas
-│   │   ├── conceito_enade.tex
-│   │   └── tab_ciclo_trienal.tex
-│   └── Trabalho 1 - INE5405.pdf
+├── relatórios
+│   ├── INE5405 - Trabalho ENADE (SLIDES).pdf
+│   ├── relatório 1
+│   │   ├── capa.tex
+│   │   ├── figuras
+│   │   │   └── logo-ufsc.pdf
+│   │   ├── graficos
+│   │   ├── main.tex
+│   │   ├── referencias.bib
+│   │   ├── secoes
+│   │   │   ├── anexos-codigos.tex
+│   │   │   ├── anexos-graficos.tex
+│   │   │   ├── conclusoes.tex
+│   │   │   ├── introducao.tex
+│   │   │   ├── materiais.tex
+│   │   │   └── resultados.tex
+│   │   ├── tabelas
+│   │   │   ├── conceito_enade.tex
+│   │   │   └── tab_ciclo_trienal.tex
+│   │   └── Trabalho 1 - INE5405.pdf
+│   └── relatório 2
+│       ├── capa.tex
+│       ├── figuras
+│       │   └── logo-ufsc.pdf
+│       ├── graficos
+│       │   └── teste_bilateral.pdf
+│       ├── main.tex
+│       ├── referencias.bib
+│       ├── secoes
+│       │   ├── anexos-codigos.tex
+│       │   ├── conclusoes.tex
+│       │   ├── introducao.log
+│       │   ├── introducao.tex
+│       │   ├── materiais.tex
+│       │   └── resultados.tex
+│       └── Trabalho 2 - INE5405.pdf
 └── src
+    ├── amostragem.r
+    ├── descritiva.r
     ├── gráficos
+    │   └── hipoteses
+    ├── hipotese_correlacao_regressao.R
+    ├── hipotese_media.r
+    ├── hipotese_proporcao.r
     ├── script_geral.r
     ├── script_sc.r
     ├── tabelas
@@ -71,5 +99,8 @@ A partir da base de dados do **Exame Nacional de Desempenho dos Estudantes (ENAD
     │   │   └── tabela_medidas_resumo_sc.csv
     │   ├── tabela_frequencia_categoria_administrativa.csv
     │   └── tabela_frequencia_modalidade_ensino.csv
+    ├── teste_correlacao_regressao.r
+    ├── teste_correlacao_regressao.R
     └── utils.r
+
 ```
