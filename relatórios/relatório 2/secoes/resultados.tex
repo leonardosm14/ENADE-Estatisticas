@@ -15,7 +15,7 @@ Essas inclinações, porém, são muito leves para terem uma influência signifi
 
 Já ao observarmos as variáveis qualitativas, a modalidade de ensino presencial domina fortemente sobre a educação a distância, com cerca de 77\% dos cursos. Enquanto isso, as categorias administrativas públicas concentram por volta de 6,7\% das instituições de ensino. Nessas variáveis é possível perceber que os intervalos de confiança de 95\% para estimar suas proporções são mais extensos que os das quantitativas, sendo (72.5957, 82.071) para modalidade de ensino Presencial e (2.6748, 10.6585) para categorías administrativas  Públicas, o que pode ter influência da maximização da amostra pelo valor de p.
 
-O \textit{script} R utilizado para calcular os intervalos pode ser observado no anexo B.
+O \textit{script} R utilizado para calcular as medidas de tendência central e dispersão e os intervalos pode ser observado no anexo B.
 
 \subsection{Testes de Hipótese e Resultados}
 
@@ -44,7 +44,7 @@ Diante desses resultados, \textbf{rejeita-se a hipótese nula}, pois o p-valor �
 
 \subsubsection{Hipótese sobre a Proporção}
 
-O objetivo desta análise foi verificar se a proporção de instituições federais em Santa Catarina é de 25\%, conforme afirma a hipótese nula. A variável analisada foi a \textit{categoria administrativa}, sendo considerado ``sucesso'' cada instituição classificada como Pública Federal. As hipóteses formuladas foram:
+O objetivo desta análise foi verificar se a proporção de instituições federais em Santa Catarina é diferente de 25\%, contrário à hipótese nula. A variável analisada foi a \textit{categoria administrativa}, sendo considerado ``sucesso'' cada instituição classificada como Pública Federal. As hipóteses formuladas foram:
 
 \begin{itemize}
     \item Hipótese nula (H$_0$): A proporção de instituições federais em Santa Catarina é igual a 25\% (i.e., $p = 0,25$).
@@ -70,22 +70,22 @@ Do ponto de vista prático, esse resultado sugere que a participação das insti
 
 \begin{itemize}
     \item Hipótese nula (H$_0$): Não há correlação entre o IDD e o Conceito Enade
-    \item Hipótese Alternativa (H$_1$): Existe correlação entre IDD e Conceito Enade
+    \item Hipótese alternativa (H$_1$): Existe correlação entre IDD e Conceito Enade
 \end{itemize}
 
-Para testar a Hipótese, primeiro foram tomadas as tabelas de IDD e CPC filtradas para o estado de Santa Catarina e criadas amostras independentes de semente $= 123$ e $n_\text{CE} = 698$ e $n_\text{IDD} = 706$. 
+Para testar a hipótese, primeiro foram tomadas as tabelas de IDD e CPC filtradas para o estado de Santa Catarina e criadas amostras independentes de semente $= 123$ e $n_\text{CE} = 698$ e $n_\text{IDD} = 706$. 
 
 As entradas foram associadas por meio do código da instituição, código do curso e ano em uma única tabela. Observou-se a presença de valores nulos, o que precisaram ser descartados já que não poderiam ser trabalhados no teste. Ao final, obteve-se uma tabela resultante dos valores de IDD e Conceito Enade relacionados para cada entrada, com um total de 388 entradas.
 
-Realizando o teste de correlação de Pearson em R considerando 5\% de significância ($\alpha$), obteve-se os seguinte resultados: O Coeficiente de Correlação de Pearson (r) $= 0.6945254$ e o p-valor $<2.2\times 10^{-16}$, com grau de liberdade de 386, valor de t calculado igual a 18.966 e intervalo de confiança de 95\% igual a $[0.6391626, 0.7427272]$.
+Realizando o teste de correlação de Pearson em R considerando 5\% de significância ($\alpha$), obtivemos como resultado Coeficiente de Correlação de Pearson (r) $= 0.6945254$ e o p-valor $<2.2\times 10^{-16}$, com grau de liberdade de 386, valor de t calculado igual a 18.966 e intervalo de confiança de 95\% igual a $[0.6391626, 0.7427272]$.
 
-Observou-se uma forte correlação positiva do coeficiente de correlação entre IDD e Conceito Enade ao estar próximo de $r = 1$, além de estar dentro do intervalo de confiança calculado. O p-valor se mostrou muito inferior ao nível de significância adotado (0.05), o que leva a rejeição da hipótese nula H0, ou seja, existe sim uma correlação significativa entre os valores dos indicadores de IDD e o Conceito Enade.
+Observou-se uma forte correlação positiva do coeficiente de correlação entre IDD e Conceito Enade ao estar próximo de $r = 1$, além de estar dentro do intervalo de confiança calculado. O p-valor se mostrou muito inferior ao nível de significância adotado (0.05), o que leva a rejeição da hipótese nula H$_0$, ou seja, existe sim uma correlação significativa entre os valores dos indicadores de IDD e o Conceito Enade.
 
 \subsubsection{Hipótese sobre a Regressão}
 
 \begin{itemize}
     \item Hipótese nula (H$_0$): O IDD não tem influência significativa sobre o Conceito Enade
-	\item Hipótese Alternativa (H$_1$): O IDD tem influência significativa sobre o Conceito Enade
+	\item Hipótese alternativa (H$_1$): O IDD tem influência significativa sobre o Conceito Enade
 \end{itemize}
 
 Para testar a hipótese, deve-se primeiro definir o modelo. O modelo de regressão linear ajustado é:
@@ -94,12 +94,12 @@ Para testar a hipótese, deve-se primeiro definir o modelo. O modelo de regress�
 \text{Conceito Enade} = \beta_0 + \beta_1 \times (\text{IDD}) + \varepsilon
 \]
 
-A hipótese nula será aceita caso o valor de $\beta_1$ seja igual a 0, ou seja, o valor do IDD não tem influência sobre o valor do Conceito Enade.
+A hipótese nula não será rejeitada caso o valor de $\beta_1$ seja igual a 0, ou seja, o valor do IDD não tem influência sobre o valor do Conceito Enade.
 
 Utilizando o R, analisa-se a regressão e calcula-se os parâmetros utilizando os dados presentes na tabela resultante das amostras de IDD e Conceito Enade. Os resultados obtidos foram: intercepto ($\beta_0 = 1{,}00395$) e coeficiente angular ($\beta_1 = 0{,}59984$), erro padrão residual de $0{,}5829$ e \textit{p-valor} $< 2{,}2 \times 10^{-16}$, com o coeficiente de determinação ajustado ($R^2$) igual a $0{,}481$.
-Na Figura 2, observa-se o gráfico da relação entre as amostras de IDD e Conceito Enade.
+Na Figura \ref{fig:regressao}, observa-se o gráfico da relação entre as amostras de IDD e Conceito Enade.
 
-Percebe-se que o coeficiente angular estimado é de 0.59984, valor significativamente diferente de 0 como propõe a hipótese, além disso, o p-valor calculado se manteve abaixo do nível de significância de 5\%, portanto pode-se rejeitar a hipótese nula H0, concluindo que existe sim a influência de IDD sobre o valor do Conceito Enade.
+Percebe-se que o coeficiente angular estimado é de 0.59984, valor significativamente diferente de 0 como propõe a hipótese, além disso, o p-valor calculado se manteve abaixo do nível de significância de 5\%, portanto pode-se rejeitar a hipótese nula H$_0$, concluindo que existe sim a influência de IDD sobre o valor do Conceito Enade.
 
 Além disso, pode-se também tirar conclusões adicionais quanto ao coeficiente de determinação ajustado (0.481), indicando que  aproximadamente 48,1\% da variação no valor do Conceito Enade é explicada pelo IDD, sugerindo que cursos de valores maiores de IDD tendem a apresentar melhores valores do Conceito Enade.
 
